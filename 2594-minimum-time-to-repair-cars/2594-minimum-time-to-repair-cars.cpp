@@ -14,7 +14,7 @@ public:
     long long repairCars(vector<int>& ranks, int cars) {
         long long ans = -1;
         long long low,high,mid;
-        low = 0;
+        low = *min_element(ranks.begin(),ranks.end());
         high = ranks[0]*cars*1LL*cars;
         while(low <= high)
         {
