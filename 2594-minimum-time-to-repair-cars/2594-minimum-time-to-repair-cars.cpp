@@ -15,7 +15,7 @@ public:
         long long ans = -1;
         long long low,high,mid;
         low = 0;
-        high = *max_element(ranks.begin(),ranks.end())*cars*1LL*cars;
+        high = ranks[0]*cars*1LL*cars;
         while(low <= high)
         {
             mid = ((low + high)>>1);
