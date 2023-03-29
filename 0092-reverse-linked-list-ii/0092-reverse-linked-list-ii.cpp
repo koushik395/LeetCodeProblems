@@ -26,6 +26,6 @@ public:
             next->next = pre->next;
             pre->next = next;
         }
-        return dummy->next;
+        return dummy -> next;
     }
 };
