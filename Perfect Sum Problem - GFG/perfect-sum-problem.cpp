@@ -18,12 +18,12 @@ class Solution{
 	            else if(i==0)
 	                dp[i][j] = 0;
 	            else if(arr[i-1]>j)
-	                dp[i][j] = dp[i-1][j] % 1000000007;
+	                dp[i][j] = dp[i-1][j];
 	            else
 	            {
 	                int take = dp[i-1][j-arr[i-1]];
 	                int nottake = dp[i-1][j];
-	                dp[i][j] = (take %M+nottake%M)%M;
+	                dp[i][j] = (take + nottake)%M;
 	            }
 	        }
 	    }
