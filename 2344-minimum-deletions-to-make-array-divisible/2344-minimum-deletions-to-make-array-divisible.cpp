@@ -7,9 +7,7 @@ public:
         for(auto i:numsDivide)
         {
             gcd = __gcd(gcd,i);
-            cout << gcd<<endl;
         }
-        cout << gcd;
         for(int i = 0;i < nums.size();i++)
         {
             if(gcd%nums[i] == 0)
