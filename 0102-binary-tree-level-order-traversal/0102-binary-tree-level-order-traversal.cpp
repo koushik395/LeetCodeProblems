@@ -18,7 +18,6 @@ public:
         if (root == nullptr)
             return;
         que.push(root);
-
         while (!que.empty())
         {
             int levelSize = que.size();
@@ -36,14 +35,10 @@ public:
                 if (currNode->right != nullptr)
                     que.push(currNode->right);
             }
-
             ans.push_back(sub);
         }
     }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        if(root == nullptr)
-            return ans;
-        
         levelorder(root);
         return ans;
     }
