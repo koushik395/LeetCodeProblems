@@ -20,7 +20,6 @@ public:
         int maxRight = find(root->right);
         if(maxLeft==-1 || maxRight==-1)
             return -1;
-       // cout << maxLeft <<" "<<maxRight<<endl;
         if(abs(maxLeft-maxRight) > 1)
             return -1;
         return max(maxLeft,maxRight)+1;
@@ -28,8 +27,7 @@ public:
     bool isBalanced(TreeNode* root) {
         if(root == NULL)
             return 1;
-        int ans = find(root);
-        if(ans==-1)
+        if(find(root)==-1)
             return 0;
         return 1;
     }
