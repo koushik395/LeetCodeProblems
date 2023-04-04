@@ -26,7 +26,6 @@ public:
                 t.erase(index2-1,2);
             compare(s,t,index1,index2-1);
         }
-        cout << s << " "<< t << endl;
         compare(s,t,index1+1,index2+1);
 
     }
