@@ -1,16 +1,17 @@
 class Solution {
 public:
     int partitionString(string s) {
-        int i = 0, ans = 1,flag = 0;
-        while(i < s.size()){
-            int val = s[i] - 'a';
-            if( flag & (1<<val) ) {
-                flag = 0;
-                ans++;
+        unordered_map<char,int> ans;
+        int count = 1;
+        for(auto i:s)
+        {
+            if(ans.find(i)!=ans.end())
+            {
+                count++;
+                ans.clear();
             }
-            flag = flag | (1<<val);
-            i++;
+            ans[i]++;
         }
-        return ans;
+        return count;
     }
 };
