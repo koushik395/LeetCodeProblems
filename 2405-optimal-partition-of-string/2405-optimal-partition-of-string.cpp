@@ -1,17 +1,16 @@
 class Solution {
 public:
     int partitionString(string s) {
-        unordered_set<char> ans;
-        int count = 1;
-        for(auto i:s)
-        {
-            if(ans.find(i)!=ans.end())
-            {
-                count++;
-                ans.clear();
+        int i = 0, ans = 1,flag = 0;
+        while(i < s.size()){
+            int val = s[i] - 'a';
+            if( flag & (1<<val) ) {
+                flag = 0;
+                ans++;
             }
-            ans.insert(i);
+            flag = flag | (1<<val);
+            i++;
         }
-        return count;
+        return ans;
     }
 };
