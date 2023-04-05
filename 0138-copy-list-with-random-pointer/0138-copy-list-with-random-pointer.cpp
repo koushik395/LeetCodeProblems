@@ -59,8 +59,7 @@ public:
         
         while(temp!=NULL)
         {
-            if(temp->next!=NULL)
-                temp->next->random = temp->random ? temp->random->next:NULL;
+            temp->next->random = temp->random ? temp->random->next:NULL;
             temp = temp->next->next;
         }
         
