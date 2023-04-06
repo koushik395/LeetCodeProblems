@@ -11,7 +11,8 @@
  */
 class Solution {
 public:
-    void check(TreeNode* root,string &leaf)
+    void check(TreeNode* root,string 
+&leaf)
     {
         if(root->left==NULL && root->right==NULL)
         {
