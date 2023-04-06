@@ -20,8 +20,12 @@ public:
     
     bool isPossible(vector<vector<int>>& grid,int i,int j,int rows,int cols)
     {
+        //0 land
+        //1 water
+        //-1 visited
         if(grid[i][j]== -1 || grid[i][j]== 1) return true;
         
+        // check if land is in perimeter
         if(isPerimeter(i,j,rows,cols)) return false;
         
         grid[i][j] = -1;
