@@ -14,7 +14,6 @@ public:
             }else{
                 str.insert(s[j]);
                 int size = str.size();
-                cout <<s[j]<<" "<< size << endl;
                 ans = max(ans,size);
                 j++;
             }
