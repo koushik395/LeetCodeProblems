@@ -13,6 +13,7 @@ public:
                         FloodFill(grid,i,j,rows,cols);
             }
         }
+        //after filling count the remaining lands
         for(auto &row:grid)
             for(auto &col:row)
                 if(col == 1)
@@ -21,7 +22,8 @@ public:
         
     }
     void FloodFill(vector<vector<int>>& grid,int i,int j,int rows,int cols)
-    {   
+    { 
+        //fill all the lands that are connected to perimeter with water.
         if(i>=0 && i<rows && j>=0 && j<cols && grid[i][j]==1)
         {
             grid[i][j] = 0;
