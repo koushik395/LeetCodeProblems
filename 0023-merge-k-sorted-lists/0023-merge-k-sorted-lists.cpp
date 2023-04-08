@@ -21,7 +21,6 @@ public:
 		list1 -> next = mergeTwoLists(list1 -> next, list2);
 		return list1;
 	}
-	// we will call recursive l1 whole list and l2 -> next
 	else
 	{	
 		list2 -> next = mergeTwoLists(list1, list2 -> next);
