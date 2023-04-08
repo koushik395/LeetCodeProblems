@@ -28,20 +28,15 @@ public:
 	}
 }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() == 0)
-            return NULL;
-        if(lists.size()==1)
-            return lists[0];
-        
-        ListNode* head1 = lists[0];
-        ListNode* head2 = lists[1];
-        ListNode* mergedHead = mergeTwoLists(head1 , head2);
-        
-        for(int i= 2;i<lists.size();i++)
-        {
-            ListNode* nextHead = lists[i];
-            mergedHead = mergeTwoLists(mergedHead,nextHead);
+        if (lists.empty()) return NULL;
+        int len = lists.size();
+        while (len > 1) {
+            for (int i = 0; i < len / 2; ++i) {
+                lists[i] = mergeTwoLists(lists[i], lists[len - 1 - i]);
+            }
+            len = (len + 1) / 2;
         }
-        return mergedHead;
+        
+        return lists.front();
     }
 };
