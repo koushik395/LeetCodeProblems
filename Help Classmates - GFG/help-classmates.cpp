@@ -18,18 +18,10 @@ class Solution{
         s.push(-1);
         for(int i=n;i>=0;i--)
         {
-            if(arr[i] > s.top())
-            {
-                ans[i] = s.top();
-                s.push(arr[i]);
-            }
-            else
-            {
-                while(s.top() >=arr[i])
-                    s.pop();
-                ans[i] = s.top();
-                s.push(arr[i]);
-            }
+            while(s.top() >=arr[i])
+                s.pop();
+            ans[i] = s.top();
+            s.push(arr[i]);
         }
     }
     vector<int> help_classmate(vector<int> arr, int n) 
