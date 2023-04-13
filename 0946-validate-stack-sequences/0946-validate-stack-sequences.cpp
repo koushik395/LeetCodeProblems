@@ -6,17 +6,12 @@ public:
         while(i < pushed.size() && j < popped.size())
         {
             int val = pushed[i];
-            if(val == popped[j])
+            res.push(val);
+            while(!res.empty() && res.top() == popped[j])
             {
-                res.push(val);
-                while(!res.empty() && res.top() == popped[j])
-                {
-                    res.pop();
-                    j++;
-                }
+                res.pop();
+                j++;
             }
-            else
-                res.push(val);
             i++;
         }
         return res.size()==0;
