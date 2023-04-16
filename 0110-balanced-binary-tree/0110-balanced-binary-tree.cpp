@@ -11,24 +11,36 @@
  */
 class Solution {
 public:
-    int counter = 1;
-    int find(TreeNode* root)
-    {
+    pair<bool, int> isBalancedFast(TreeNode* root) {
+        // base case
         if(root == NULL)
-            return 0;
-        int maxLeft = find(root->left);
-        int maxRight = find(root->right);
-        if(maxLeft==-1 || maxRight==-1)
-            return -1;
-        if(abs(maxLeft-maxRight) > 1)
-            return -1;
-        return max(maxLeft,maxRight)+1;
+        {
+            pair<bool, int> p = make_pair(true, 0);
+            return p;
+        }
+        
+        pair<int,int> left = isBalancedFast(root->left);
+        pair<int,int> right = isBalancedFast(root->right);
+        
+        
+        bool leftAns = left.first;
+        bool rightAns = right.first;
+        
+        bool diff = abs (left.second - right.second ) <=1;
+        
+        pair<bool,int> ans;
+        ans.second = max(left.second, right.second) + 1;
+        
+        if(leftAns && rightAns && diff) {
+           ans.first = true;
+        }
+        else
+        {
+            ans.first = false;
+        }
+        return ans;
     }
     bool isBalanced(TreeNode* root) {
-        if(root == NULL)
-            return 1;
-        if(find(root)==-1)
-            return 0;
-        return 1;
+        return isBalancedFast(root).first;
     }
 };
