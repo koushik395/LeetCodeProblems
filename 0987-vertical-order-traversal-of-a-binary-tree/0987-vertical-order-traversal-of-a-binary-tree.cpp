@@ -39,5 +39,27 @@ public:
 
         return fin;
     }
+    // for the i/p [1,2,3,4,5,6,7]
+    // The data is stored in the map in the following way
+    /*
+    -2{
+     2:[4];
+    }
+    -1{
+     1:[2];
+    }
+    0{
+     0:[1];
+     2:[5,6];
+    }
+    1{
+     1:[3];
+    }
+    2{
+     2:[7];
+    }*/
+    
+    /*We are the storing the corresponding column number with the rows in order to sort the 
+    individual rows if they occur in same column*/
 
 };
