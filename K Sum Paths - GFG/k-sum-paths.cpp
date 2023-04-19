@@ -104,11 +104,14 @@ class Solution{
     int ans=0;
     void solve(Node* root, int targetSum,ll currSum){
         if(root==NULL) return;
+        
         currSum+=root->data;
         ans+=mp[currSum-targetSum];//it mean between the ongoing process there is a place where targetSum is generated.
         mp[currSum]++;
+        
         solve(root->left , targetSum,currSum);
         solve(root->right , targetSum,currSum);
+        
         mp[currSum]--;
         currSum-=root->data;
 
