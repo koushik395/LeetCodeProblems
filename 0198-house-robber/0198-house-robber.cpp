@@ -12,8 +12,7 @@ public:
     }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp1(n+1,-1);
-        vector<int> dp2(n+1,-1);
-        return solve(nums,n,dp1);
+        vector<int> dp(n+1,-1);
+        return solve(nums,n,dp);
     }
 };
