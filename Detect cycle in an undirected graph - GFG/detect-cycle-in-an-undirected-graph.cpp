@@ -5,12 +5,12 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool is_cyclic_util(int v, vector<bool>& visited, int parent,vector<int> adj[]) {
-        visited[v] = true;
+    bool is_cyclic_util(int child, vector<bool>& visited, int parent,vector<int> adj[]) {
+        visited[child] = true;
 
-        for (int neighbor : adj[v]) {
+        for (int neighbor : adj[child]) {
             if (!visited[neighbor]) {
-                if (is_cyclic_util(neighbor, visited, v,adj)) {
+                if (is_cyclic_util(neighbor, visited, child,adj)) {
                     return true;
                 }
             }
