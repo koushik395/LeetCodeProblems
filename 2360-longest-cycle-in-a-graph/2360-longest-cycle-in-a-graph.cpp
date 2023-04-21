@@ -30,7 +30,7 @@ public:
                 if(indegree[child]==0) q.push(child);    
             }  
         }
-        
+        //for cycle detection and taking the max cycle length
         for(int i=0;i<v;i++)
         {
            if(!visited[i])
