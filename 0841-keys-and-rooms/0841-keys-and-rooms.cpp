@@ -29,6 +29,7 @@ public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
         int n = rooms.size();
         vector<bool> visited(n,false);
+        int cnt = 0;
         return connected(n,0,rooms,visited);
     }
 };
