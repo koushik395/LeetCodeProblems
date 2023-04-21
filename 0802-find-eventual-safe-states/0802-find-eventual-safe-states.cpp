@@ -9,7 +9,7 @@ vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
     for (int i = 0; i < v; i++) {
         for (int neighbour : graph[i]) {
             outdegree[i]++;
-            parent[neighbour].push_back(i);
+            parent[neighbour].push_back(i);//store the parents
         }
     }
 
