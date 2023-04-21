@@ -17,7 +17,6 @@ class Solution
 	{
 	    vector<int> ans;
 	    queue<int> q;
-	    vector<bool> visited(v,false);
 	    vector<int> indegree(v,0);
 	    
 	    for(int i=0;i<v;i++)
@@ -27,10 +26,7 @@ class Solution
 	    for(int i=0;i<v;i++)
 	    {
 	        if(indegree[i]==0)
-	        {
 	            q.push(i);
-	            visited[i] = 1;
-	        }
 	    }
 	    while(q.size()!=0)
 	    {
@@ -39,11 +35,8 @@ class Solution
 	        q.pop();
 	        for(auto& neighbour:adj[front])
 	        {
-	            if(visited[neighbour]==0)
-	            {
-	                indegree[neighbour]--;
-	                if(indegree[neighbour]==0) q.push(neighbour);
-	            }
+                indegree[neighbour]--;
+                if(indegree[neighbour]==0) q.push(neighbour);
 	        }
 	    }
 	   return ans;
