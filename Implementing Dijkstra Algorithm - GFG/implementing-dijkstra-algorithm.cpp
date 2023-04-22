@@ -11,7 +11,7 @@ class Solution
     vector <int> dijkstra(int v, vector<vector<int>> adj[], int start)
     {
         vector<int> distance(v,INT_MAX);
-    	multiset<pair<int,int>> q;
+    	set<pair<int,int>> q;
     
     	distance[start] = 0;
     	q.insert({0,start});
@@ -28,6 +28,8 @@ class Solution
     			int wt = neightbour[1];
     			if(wt+dist < distance[child])
     			{
+    			    if(distance[child]!=INT_MAX)
+    			        q.erase({distance[child],child});
     				distance[child] = wt+dist;
     				q.insert({wt+dist,child});
     			}
