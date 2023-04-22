@@ -10,8 +10,8 @@ public:
             dfs(adj, hasApple, neighbour, visited, time);
             if (hasApple[neighbour])
             {
-                time += 2; // Increment time by 2 for each edge traversal
-                hasApple[start] = true; // Mark the current vertex as having an apple
+                time += 2;
+                hasApple[start] = true;
             }
         }
     }
