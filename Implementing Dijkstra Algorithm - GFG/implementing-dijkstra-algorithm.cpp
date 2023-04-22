@@ -11,16 +11,17 @@ class Solution
     vector <int> dijkstra(int v, vector<vector<int>> adj[], int start)
     {
         vector<int> distance(v,INT_MAX);
-    	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+    	multiset<pair<int,int>> q;
     
     	distance[start] = 0;
-    	q.push({0,start});
+    	q.insert({0,start});
     
     	while(!q.empty())
     	{
-    		int node = q.top().second;
-    		int dist = q.top().first;
-    		q.pop();
+    	    auto it = *q.begin();
+    		int node = it.second;
+    		int dist = it.first;
+    		q.erase(it);
     		for(auto& neightbour: adj[node])
     		{
     			int child = neightbour[0];
@@ -28,7 +29,7 @@ class Solution
     			if(wt+dist < distance[child])
     			{
     				distance[child] = wt+dist;
-    				q.push({wt+dist,child});
+    				q.insert({wt+dist,child});
     			}
     		}
     	}
