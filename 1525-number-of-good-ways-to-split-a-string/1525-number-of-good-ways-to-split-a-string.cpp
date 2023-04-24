@@ -10,19 +10,15 @@ public:
         int count = 0;
         for(int i= 1;i<n;i++)
         {
-            if(res.find(s[i]) == res.end())
-                pre[i] = pre[i-1] + 1,res.insert(s[i]);
-            else
-                pre[i] = pre[i-1];
+            res.insert(s[i]);
+            pre[i] = res.size();
         }
         res.clear();
         res.insert(s[n-1]);
         for(int i= n-2;i>=0;i--)
         {
-            if(res.find(s[i]) == res.end())
-                suf[i] = suf[i+1] + 1,res.insert(s[i]);
-            else
-                suf[i] = suf[i+1];
+            res.insert(s[i]);
+            suf[i] = res.size();
         }
         for(int i=1;i<n;i++)
             if(pre[i-1] == suf[i])
