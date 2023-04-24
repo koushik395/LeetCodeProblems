@@ -11,6 +11,7 @@ public:
             for(int j=i+1;j<n;j++)
             {
                 gcd = __gcd(gcd,nums[j]);
+                if(gcd<k) break;
                 if(gcd == k)
                     count++;
             }
