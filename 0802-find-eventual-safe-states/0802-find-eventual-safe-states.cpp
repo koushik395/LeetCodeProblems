@@ -9,7 +9,7 @@ vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
     for (int i = 0; i < v; i++) {
         for (int neighbour : graph[i]) {
             outdegree[i]++;
-            parent[neighbour].push_back(i);//store the parents
+            parent[neighbour].push_back(i);
         }
     }
 
@@ -27,11 +27,11 @@ vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         q.pop();
         for(auto& child:parent[front])
         {
-            if(child!=-1)
-            {
+            // if(child!=-1)
+            // {
                 outdegree[child]--;
                 if(outdegree[child]==0) q.push(child);   
-            }
+            // }
         }
     }
     sort(ans.begin(),ans.end());
