@@ -27,11 +27,8 @@ vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         q.pop();
         for(auto& child:parent[front])
         {
-            // if(child!=-1)
-            // {
-                outdegree[child]--;
-                if(outdegree[child]==0) q.push(child);   
-            // }
+            outdegree[child]--;
+            if(outdegree[child]==0) q.push(child);   
         }
     }
     sort(ans.begin(),ans.end());
