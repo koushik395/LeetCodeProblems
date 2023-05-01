@@ -26,7 +26,6 @@ public:
             return false;
     }
     bool isValidBST(TreeNode* root) {
-        // if(root->left==NULL && root->right==NULL) return true;
         return isBST(root,LONG_MIN,LONG_MAX);
     }
 };
