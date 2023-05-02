@@ -35,15 +35,15 @@ private:
     		TreeNode *root = new TreeNode( head->val );
     		return root;
     	}
-    	ListNode *mid = head, *temp = head;
-    	while( temp != tail && temp->next != tail )
+    	ListNode *slow = head, *fast = head;
+    	while( fast != tail && fast->next != tail )
     	{
-    		mid = mid->next;
-    		temp = temp->next->next;
+    		slow = slow->next;
+    		fast = fast->next->next;
     	}
-    	TreeNode *root = new TreeNode( mid->val );
-    	root->left = sortedListToBST( head, mid );
-    	root->right = sortedListToBST( mid->next, tail );
+    	TreeNode *root = new TreeNode( slow->val );
+    	root->left = sortedListToBST( head, slow );
+    	root->right = sortedListToBST( slow->next, tail );
     	return root;
     }
 };
