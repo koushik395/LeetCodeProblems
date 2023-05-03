@@ -17,6 +17,6 @@ public:
             if(s1.find(num) == s1.end())
                 ans2.push_back(num);
         }
-        return {ans1,ans2};
+        return {ans1,ans2}; 
     }
 };
