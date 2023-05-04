@@ -10,37 +10,24 @@
  * };
  */
 class Solution {
-    int n,inStart,inEnd;
-    unordered_map<int,int> NodeToIndex;
-public:
-    void findPos(vector<int> &inorder,unordered_map<int,int> &NodeToIndex)
+    TreeNode* solve(vector<int>& preorder,int mini,int maxi,int &i)
     {
-        for(int i =0;i<inorder.size();i++)
-        {
-            NodeToIndex[inorder[i]] = i;
-        }
-    }
-    TreeNode* solve(vector<int>& preorder, vector<int>& inorder,int &index,int inStart,int inEnd)
-    {
-        if(index >= n || inStart > inEnd)
+        if(i>=preorder.size())
             return NULL;
         
-        int element = preorder[index++];
-        TreeNode* root = new TreeNode(element);
-        int position = NodeToIndex[element];
+        if(preorder[i] < mini || preorder[i] > maxi)
+            return NULL;
         
-        root->left = solve(preorder,inorder,index,inStart,position-1);
-        root->right = solve(preorder,inorder,index,position+1,inEnd);
-        
+        TreeNode* root = new TreeNode(preorder[i++]);
+        root->left = solve(preorder,mini,root->val,i);
+        root->right = solve(preorder,root->val,maxi,i);
         return root;
     }
+    public:
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        vector<int> inorder = preorder;
-        sort(inorder.begin(),inorder.end());
-        int preorderIndex = 0;
-        n = preorder.size();
-        findPos(inorder,NodeToIndex);
-        TreeNode* ans = solve(preorder,inorder,preorderIndex,0,n-1);
-        return ans;
+        int mini = INT_MIN;
+        int maxi = INT_MAX;
+        int index = 0;
+        return solve(preorder,mini,maxi,index);
     }
 };
