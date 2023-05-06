@@ -164,42 +164,6 @@ class Solution
 		
 	}
 	
-	int countNodes(Node* head)
-	{
-	    int cnt = 0;
-	    Node* temp = head;
-	    while(temp!=NULL)
-	    {
-	        cnt++;
-	        temp = temp->right;
-	    }
-	    return cnt;
-	}
-	Node *sortedListToBST(Node *head, int n)
-    {
-    	if(n<=0 || head == NULL)
-    	return NULL;
-    	
-    	Node* left = sortedListToBST(head,n/2);
-    	
-    	Node* root = head;
-    	root->left = left;
-    	
-    	head = head->right;
-    	
-    	root->right = sortedListToBST(head,n-n/2-1);
-    	return root;
-    }
-    
-    void inorder(Node* root,vector<int> &ans)
-    {
-        if(root==NULL)
-            return;
-        inorder(root->left,ans);
-        ans.push_back(root->data);
-        inorder(root->right,ans);
-    }
-	
     vector<int> merge(Node *root1, Node *root2)
     {
         Node* head1 = NULL;
