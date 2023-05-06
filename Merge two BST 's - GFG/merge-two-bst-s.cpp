@@ -156,59 +156,49 @@ class Solution
                 }
             }
         }
-        while(head1!=NULL)
-        {
+        if(head1)
             tail->right = head1;
-            head1->left = tail;
-            tail = head1;
-            head1 = head1->right;
-        }
-        while(head2!=NULL)
-        {
+        if(head2)
             tail->right = head2;
-            head2->left = tail;
-            tail = head2;
-            head2 = head2->right;
-        }
         return head;
 		
 	}
 	
-// 	int countNodes(Node* head)
-// 	{
-// 	    int cnt = 0;
-// 	    Node* temp = head;
-// 	    while(temp!=NULL)
-// 	    {
-// 	        cnt++;
-// 	        temp = temp->right;
-// 	    }
-// 	    return cnt;
-// 	}
-// 	Node *sortedListToBST(Node *head, int n)
-//     {
-//     	if(n<=0 || head == NULL)
-//     	return NULL;
+	int countNodes(Node* head)
+	{
+	    int cnt = 0;
+	    Node* temp = head;
+	    while(temp!=NULL)
+	    {
+	        cnt++;
+	        temp = temp->right;
+	    }
+	    return cnt;
+	}
+	Node *sortedListToBST(Node *head, int n)
+    {
+    	if(n<=0 || head == NULL)
+    	return NULL;
     	
-//     	Node* left = sortedListToBST(head,n/2);
+    	Node* left = sortedListToBST(head,n/2);
     	
-//     	Node* root = head;
-//     	root->left = left;
+    	Node* root = head;
+    	root->left = left;
     	
-//     	head = head->right;
+    	head = head->right;
     	
-//     	root->right = sortedListToBST(head,n-n/2-1);
-//     	return root;
-//     }
+    	root->right = sortedListToBST(head,n-n/2-1);
+    	return root;
+    }
     
-    // void inorder(Node* root,vector<int> &ans)
-    // {
-    //     if(root==NULL)
-    //         return;
-    //     inorder(root->left,ans);
-    //     ans.push_back(root->data);
-    //     inorder(root->right,ans);
-    // }
+    void inorder(Node* root,vector<int> &ans)
+    {
+        if(root==NULL)
+            return;
+        inorder(root->left,ans);
+        ans.push_back(root->data);
+        inorder(root->right,ans);
+    }
 	
     vector<int> merge(Node *root1, Node *root2)
     {
