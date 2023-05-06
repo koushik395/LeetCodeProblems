@@ -3,11 +3,11 @@ public:
     int pow_mod(int base, int exp, int mod) {
         int res = 1;
         while (exp > 0) {
-            if (exp % 2 == 1) {
+            if (exp & 1) {
                 res = (res *1LL* base) % mod;
             }
             base = (base *1LL* base) % mod;
-            exp /= 2;
+            exp >>= 1;
         }
         return res;
     }
