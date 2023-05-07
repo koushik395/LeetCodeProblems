@@ -31,7 +31,7 @@ public:
         if(size&1)
             ans = nums1[size>>1];
         else
-            ans = ((nums1[(size/2)-1] + nums1[(size/2)])*1.0) / 2;
+            ans = ((nums1[(size>>1)-1] + nums1[(size>>1)])*1.0) / 2;
         
         return ans;
     }
