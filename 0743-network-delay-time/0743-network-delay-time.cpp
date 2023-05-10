@@ -1,62 +1,52 @@
 class Solution {
 public:
-    struct Compare {
-    bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
-        return a.second > b.second;
-    }
-};
-    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<vector<pair<int, int>>> graph(n + 1);
-        for (const auto& time : times) {
-            int source = time[0];
-            int target = time[1];
-            int weight = time[2];
-            graph[source].push_back({target, weight});
-        }
+    vector <int> dijkstra(int v, vector<pair<int,int>> adj[], int start)
+    {
+        vector<int> distance(v+1,INT_MAX);
+        set<pair<int,int>> q;
 
-        // Array to store the minimum distance from source to each node
-        vector<int> dist(n + 1, INT_MAX);
+        distance[start] = 0;
+        q.insert({0,start});
 
-        // Priority queue for Dijkstra's algorithm
-        priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> pq;
-
-        // Start with the source node
-        dist[k] = 0;
-        pq.push({k, 0});
-
-        while (!pq.empty()) {
-            int node = pq.top().first;
-            int currDist = pq.top().second;
-            pq.pop();
-
-            // If the current distance is greater than the stored distance, skip
-            if (currDist > dist[node])
-                continue;
-
-            // Iterate through the neighbors of the current node
-            for (const auto& neighbor : graph[node]) {
-                int neighborNode = neighbor.first;
-                int neighborDist = neighbor.second;
-
-                // Calculate the new distance to the neighbor node
-                int newDist = currDist + neighborDist;
-
-                // If the new distance is smaller, update the minimum distance and add to the priority queue
-                if (newDist < dist[neighborNode]) {
-                    dist[neighborNode] = newDist;
-                    pq.push({neighborNode, newDist});
+        while(!q.empty())
+        {
+            auto it = *q.begin();
+            int node = it.second;
+            int dist = it.first;
+            q.erase(it);
+            for(auto& neightbour: adj[node])
+            {
+                int child = neightbour.second;
+                int wt = neightbour.first;
+                if(wt+dist < distance[child])
+                {
+                    if(distance[child]!=INT_MAX)
+                        q.erase({distance[child],child});
+                    distance[child] = wt+dist;
+                    q.insert({wt+dist,child});
                 }
             }
         }
-
-        // Find the maximum distance from the source node
+        return distance;
+    }
+    int networkDelayTime(vector<vector<int>>& times, int v, int start) {
+        vector<pair<int,int>> adj[v+1];
+        int sv,ev,cost;
+        for(auto& edges:times)
+        {
+            sv = edges[0];
+            ev = edges[1];
+            cost = edges[2];
+            adj[sv].push_back({cost,ev});
+        }
+        vector<int> distance = dijkstra(v,adj,start);
+        
         int maxDist = 0;
-        for (int i = 1; i <= n; i++) {
-            if (dist[i] == INT_MAX)
-                return -1; // There is a node that cannot receive the signal
-            maxDist = max(maxDist, dist[i]);
+        for (int i = 1; i <= v; i++) {
+            if (distance[i] == INT_MAX)
+                return -1;
+            maxDist = max(maxDist, distance[i]);
         }
-
         return maxDist;
-        }
+    }
 };
