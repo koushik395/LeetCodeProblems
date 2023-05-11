@@ -127,12 +127,8 @@ class Solution {
       // leaf Node
       if(!root->left && !root->right) return true;
       
-      //right exist and left does not
-      if(root->left == NULL) return false;
-      
       // left Node exists and right does not
       if(root->right == NULL) return root->data > root->left->data;
-      
       
       else
       {
