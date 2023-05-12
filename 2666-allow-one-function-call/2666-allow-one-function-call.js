@@ -4,15 +4,6 @@
  */
 var once = function(fn) {
     let used = false;
-    // return function(...args)
-    // {
-    //     if(!used)
-    //     {
-    //         used = true
-    //         return fn(...args)
-    //     }
-    //     return undefined
-    // }
     return (...args) => {
         if(!used)
         {
