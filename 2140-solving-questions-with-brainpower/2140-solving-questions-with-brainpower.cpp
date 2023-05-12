@@ -14,13 +14,13 @@ public:
 //     }
     
     
-    long long dp[200001] = {};
+    long long dp[100001] = {};
     long long getPoints(int i, vector<vector<int>>& q, int n){
-        
-        if(dp[i] != 0) return dp[i];
         
         if(i == n-1) return q[i][0];
         if(i >= n) return 0;
+        
+        if(dp[i] != 0) return dp[i];
         
         long long take = q[i][0] + getPoints(i + q[i][1] + 1, q, n);
         long long nottake = 0 + getPoints(i + 1, q, n);
