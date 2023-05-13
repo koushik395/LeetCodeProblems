@@ -1,3 +1,4 @@
+```
 **Bottom Up DP Example**
 low = 3, high = 3, zero = 1, one = 1
 dp []= {1,0,0,0};
@@ -25,3 +26,4 @@ dp [] = {1,2,4,4};
 **for ones**
 3 >= 1 dp[3] = dp[3] + dp[3-1]
 dp [] = {1,2,4,8};
+```
