@@ -10,37 +10,16 @@
  */
 class Solution {
 public:
-    int countNodes(ListNode* head)
-    {
-        int count = 0;
-        ListNode* temp = head;
-        while(temp!=NULL)
-        {
-            count++;
-            temp = temp->next;
-        }
-        return count;
-    }
-    
     ListNode* swapNodes(ListNode* head, int k) {
-        int front = k;
-        int back = countNodes(head) - k;
-        ListNode* temp = head;
-        ListNode* temp1,*temp2;
-        int count = 1;
-        while(temp!=NULL && count < front)
-        {
-            temp = temp->next;
-            count++;
-        } temp1 = temp;
-        temp = head,count = 1;
-        while(temp!=NULL && count <= back)
-        {
-            temp = temp->next;
-            count++;
-        } temp2 = temp;
-        
-        swap(temp1->val,temp2->val);
+        ListNode *n1 = nullptr, *n2 = nullptr;
+        for (auto p = head; p != nullptr; p = p->next) {
+            n2 = n2 == nullptr ? nullptr : n2->next;
+            if (--k == 0) {
+                n1 = p;
+                n2 = head;
+            }
+        }
+        swap(n1->val, n2->val);
         return head;
     }
 };
