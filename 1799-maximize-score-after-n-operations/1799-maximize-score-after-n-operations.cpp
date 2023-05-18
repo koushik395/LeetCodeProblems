@@ -1,39 +1,35 @@
 class Solution {
 public:
-    int solve(vector<int>& nums, vector<bool>& visited, int& n, int op, unordered_map<vector<bool>, int>& hashMap)
+    int solve(vector<int>& nums, int visited, int& n, int op, vector<int>& memo)
     {
-        if(hashMap.find(visited) != hashMap.end())
+        if(memo[visited] != -1)
         {
-            return hashMap[visited];
+            return memo[visited];
         }
         int maxScore = 0;
         for(int i=0; i<n-1; i++)
         {
-            if(visited[i])
+            if(visited & (1 << i))
             {
                 continue;
             }
             for(int j=i+1; j<n; j++)
             {
-                if(visited[j])
+                if(visited & (1 << j))
                 {
                     continue;
                 }
-                visited[i] = true;
-                visited[j] = true;
+                int newVisited = visited | (1 << i) | (1 << j);
                 int currScore = op * __gcd(nums[i], nums[j]);
-                int remainScore = solve(nums, visited, n, op+1, hashMap);
+                int remainScore = solve(nums, newVisited, n, op+1, memo);
                 maxScore = max(maxScore, currScore+remainScore);
-                visited[i] = false;
-                visited[j] = false;
             }
         }
-        return hashMap[visited] = maxScore;
+        return memo[visited] = maxScore;
     }
     int maxScore(vector<int>& nums) {
         int n = nums.size();
-        vector<bool> visited(n, false);
-        unordered_map<vector<bool>, int> hashMap;
-        return solve(nums, visited, n, 1, hashMap);
+        vector<int> memo((1 << n), -1);
+        return solve(nums, 0, n, 1, memo);
     }
 };
