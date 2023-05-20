@@ -6,6 +6,7 @@ public:
     }
     string kthLargestNumber(vector<string>& arr, int k) {
         priority_queue<string, vector<string>, Solution> minHeap;
+
         for (string& num : arr) {
             minHeap.push(num);
             if (minHeap.size() > k) {
