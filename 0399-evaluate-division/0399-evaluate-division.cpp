@@ -2,6 +2,7 @@ class Solution {
 public:
     unordered_map<string, vector<pair<string, double>>> graph;
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        
         int n = equations.size();
         for (int i = 0; i < n; i++) {
             string a = equations[i][0];
@@ -13,7 +14,7 @@ public:
         }
         
         vector<double> result;
-        for (auto query : queries) {
+        for (auto &query : queries) {
             unordered_set<string> visited;
             result.push_back(dfs(query[0], query[1], visited));
         }
@@ -24,7 +25,7 @@ public:
         if (graph.find(src) == graph.end()) return -1;
         if (src == dst) return 1;
         
-        for (auto node : graph[src]) {
+        for (auto &node : graph[src]) {
             if (visited.count(node.first)) continue;
             visited.insert(node.first);
             double res = dfs(node.first, dst, visited);
