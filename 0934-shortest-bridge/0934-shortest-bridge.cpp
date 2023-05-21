@@ -7,7 +7,7 @@ public:
         return 1 + paint(A, i + 1, j) + paint(A, i - 1, j) + paint(A, i, j + 1) + paint(A, i, j - 1);
     }
     
-    bool expand(vector<vector<int>>& A, int i, int j, int cl) {
+    bool expand(vector<vector<int>>& A, int i, int j, int &cl) {
         if (min(i, j) < 0 || max(i, j) == A.size())
             return false;
         A[i][j] = A[i][j] == 0 ? cl + 1 : A[i][j];
