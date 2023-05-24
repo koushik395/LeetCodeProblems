@@ -12,7 +12,6 @@ public:
         
         for(auto& [mul,score]: newarr)
         {
-            cout << mul << " "<< score << endl;
             minheap.push(score);
             sum += score;
             if (minheap.size() > k) {
