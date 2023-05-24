@@ -7,11 +7,12 @@ public:
         for(int i = 0;i < nums1.size();i++)
                 newarr[i] = make_pair(nums2[i],nums1[i]);
         
-        sort(newarr.rbegin(),newarr.rend());
+        sort(newarr.begin(),newarr.end(),greater<pair<int,int>>());
         long long sum = 0,ans = 0;
         
         for(auto& [mul,score]: newarr)
         {
+            cout << mul << " "<< score << endl;
             minheap.push(score);
             sum += score;
             if (minheap.size() > k) {
