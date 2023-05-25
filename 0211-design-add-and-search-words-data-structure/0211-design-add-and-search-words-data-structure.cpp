@@ -58,8 +58,8 @@ public:
                 root = root->children[index];
             } else {
                 for (int j = 0; j < 26; j++) {
-                    if(!root->children[j]) continue;
-                    if (searchUtil(root->children[j], word.substr(i + 1))) {
+                    
+                    if (root->children[j] && searchUtil(root->children[j], word.substr(i + 1))) {
                         return true;
                     }
                 }
