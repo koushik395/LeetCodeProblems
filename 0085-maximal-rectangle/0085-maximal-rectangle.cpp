@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void next(int* heights,int n,vector<int> &nextSmaller)
+    void next(vector<int>& heights,int n,vector<int> &nextSmaller)
     {
         stack<int> s;
         s.push(-1);
@@ -13,7 +13,7 @@ public:
             s.push(i);
         }
     }
-    void prev(int* heights,int n,vector<int> &prevSmaller)
+    void prev(vector<int>& heights,int n,vector<int> &prevSmaller)
     {
         stack<int> s;
         s.push(-1);
@@ -25,7 +25,7 @@ public:
             s.push(i);
         }
     }
-    int largestRectangleArea(int* heights,int n) {
+    int largestRectangleArea(vector<int>& heights,int n) {
         vector<int> nextSmaller(n);
         next(heights,n,nextSmaller);
             
@@ -47,7 +47,7 @@ public:
     int maximalRectangle(vector<vector<char>>& matrix) {
         int row = matrix.size();
         int col = matrix[0].size();
-        int *arr = new int[col];
+        vector<int> arr(col,0);
         for(int j=0;j<col;j++)
             arr[j] = matrix[0][j] - '0';
         //compute area for 1st row
@@ -56,22 +56,20 @@ public:
         //compute area for next rows
         for(int i=1;i<row;i++)
         {
-            int *arr1 = new int[col];
             for(int j=0;j<col;j++)
             {
-                arr1[j] = matrix[i][j]-'0';
+                int val =  matrix[i][j]-'0';
                 if(matrix[i][j]!='0')
                 {
-                    arr1[j] = arr1[j] + arr[j];
+                    arr[j] += val;
                 }
                 else
                 {
-                   arr1[j] = 0;
+                   arr[j] = 0;
                 }
             }
             //entire row updated
-            area = max(area,largestRectangleArea(arr1,col));
-            arr  = arr1;
+            area = max(area,largestRectangleArea(arr,col));
         }
         return area;
     }
