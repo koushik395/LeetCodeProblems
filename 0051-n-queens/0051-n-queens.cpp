@@ -16,41 +16,20 @@ public:
         ans.push_back(temp);
     }
 
-    bool isSafe(int row,int col,vector<vector<char>> &board,int n)
+    bool isSafe(int row,int col,vector<vector<char>> &board,int n,int rowMask,int diag1Mask,int diag2Mask)
     {
-        int x = row;
-        int y = col;
-
         //check for same row
-        while(y >=0)
-        {
-            if(board[x][y]=='Q') return false;
-            y--;
-        }
+        if(rowMask & (1 << row)) return false;
 
-        x = row;
-        y = col;
         //check for diagnol
-        while(x>=0 && y>=0)
-        {
-            if(board[x][y]=='Q') return false;
-            y--;
-            x--;
-        }
+        if(diag1Mask & (1 << (row + col))) return false;
 
-        x = row;
-        y = col;
-        //check for diagnol
-        while(x < n && y>=0)
-        {
-            if(board[x][y]=='Q') return false;
-            x++;
-            y--;
-        }
+        if(diag2Mask & (1 << (row - col + n - 1))) return false;
+
         return true;
     }
 
-    void solve(int col,vector<vector<string>> &ans,vector<vector<char>> &board,int n)
+    void solve(int col,vector<vector<string>> &ans,vector<vector<char>> &board,int n,int rowMask,int diag1Mask,int diag2Mask)
     {
         if(col == n)
         {
@@ -60,11 +39,19 @@ public:
 
         for(int row = 0; row < n;row++)
         {
-            if(isSafe(row,col,board,n))
+            if(isSafe(row,col,board,n,rowMask,diag1Mask,diag2Mask))
             {
                 board[row][col] = 'Q';
-                solve(col+1,ans,board,n);
+                rowMask |= (1 << row);
+                diag1Mask |= (1 << (row + col));
+                diag2Mask |= (1 << (row - col + n - 1));
+                
+                solve(col+1,ans,board,n,rowMask,diag1Mask,diag2Mask);
+                
                 board[row][col] = '.';
+                rowMask &= ~(1 << row);
+                diag1Mask &= ~(1 << (row + col));
+                diag2Mask &= ~(1 << (row - col + n - 1));
             }
         }
     }
@@ -72,7 +59,7 @@ public:
         vector<vector<char>> board(n,vector<char>(n,'.'));
         vector<vector<string>> ans;
         
-        solve(0,ans,board,n);
+        solve(0,ans,board,n,0,0,0);
         
         return ans;
     }
