@@ -5,7 +5,7 @@ public:
         int n = stoneValue.size();
         if(i >= n) return 0;
         
-        if(dp[i]!=0) return dp[i];
+        if(dp[i]!=INT_MAX) return dp[i];
         
         int takeone = stoneValue[i] - helper(dp,stoneValue,i+1);
         
@@ -18,7 +18,7 @@ public:
         return dp[i] = max({takeone,taketwo,takethree});
     }
     string stoneGameIII(vector<int>& stoneValue) {
-        vector<int> dp(stoneValue.size(),0);
+        vector<int> dp(stoneValue.size(),INT_MAX);
         int value = helper(dp,stoneValue,0);
         if(value > 0)
             return "Alice";
