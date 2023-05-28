@@ -19,5 +19,6 @@ public:
         cuts.push_back(n);
         cuts.insert(cuts.begin(),0); 
         return Findcost(dp,cuts,1,cuts.size()-2);
+        
     }
 };
