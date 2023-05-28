@@ -27,8 +27,7 @@ public:
                     {
                         if(isSafe(row,col,board,val))
                         {
-                            char ch = static_cast<char>(val + '0');
-                            board[row][col] = ch;
+                            board[row][col] = val+'0';
                             if(solve(board))
                                 return true;
                             else
