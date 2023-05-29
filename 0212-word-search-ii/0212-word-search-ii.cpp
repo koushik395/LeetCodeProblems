@@ -67,8 +67,9 @@ public:
         char ch = board[i][j];
         visited[i][j] = true;
         node = node->children[ch - 'a'];
-
-        searchWords(board, node, i - 1, j, rows, cols, word += ch, visited, ans); // Go up
+        word += ch;
+        
+        searchWords(board, node, i - 1, j, rows, cols, word, visited, ans); // Go up
         searchWords(board, node, i + 1, j, rows, cols, word, visited, ans); // Go down
         searchWords(board, node, i, j - 1, rows, cols, word, visited, ans); // Go left
         searchWords(board, node, i, j + 1, rows, cols, word, visited, ans); // Go right
