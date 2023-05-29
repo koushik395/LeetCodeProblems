@@ -54,7 +54,7 @@ public:
         return (i >= 0 && i < rows && j >= 0 && j < cols);
     }
 
-    void searchWords(vector<vector<char>>& board, TrieNode* node, int i, int j, int rows, int cols, string& word, vector<vector<bool>>& visited, vector<string>& ans) {
+    void searchWords(vector<vector<char>>& board, TrieNode* node, int i, int j, int rows, int cols, string& word,vector<string>& ans) {
         if (node->isTerminal) {
             ans.push_back(word);
             node->isTerminal = false; // Mark word as found (optional)
@@ -69,10 +69,10 @@ public:
         node = node->children[ch - 'a'];
         word += ch;
         
-        searchWords(board, node, i - 1, j, rows, cols, word, visited, ans); // Go up
-        searchWords(board, node, i + 1, j, rows, cols, word, visited, ans); // Go down
-        searchWords(board, node, i, j - 1, rows, cols, word, visited, ans); // Go left
-        searchWords(board, node, i, j + 1, rows, cols, word, visited, ans); // Go right
+        searchWords(board, node, i - 1, j, rows, cols, word, ans); // Go up
+        searchWords(board, node, i + 1, j, rows, cols, word, ans); // Go down
+        searchWords(board, node, i, j - 1, rows, cols, word, ans); // Go left
+        searchWords(board, node, i, j + 1, rows, cols, word, ans); // Go right
 
         board[i][j] = ch;
         word.pop_back();
@@ -87,12 +87,11 @@ public:
         for (auto& word : words) {
             t->insert(word);
         }
-
+        
+        string word;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                string word;
-                vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-                searchWords(board, t->root, i, j, rows, cols, word, visited,ans);
+                searchWords(board, t->root, i, j, rows, cols, word,ans);
             }
         }
         return ans;
