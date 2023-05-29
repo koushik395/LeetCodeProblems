@@ -60,12 +60,12 @@ public:
             node->isTerminal = false; // Mark word as found (optional)
         }
 
-        if (!isPerimeter(i, j, rows, cols) || visited[i][j] || node->children[board[i][j] - 'a'] == nullptr) {
+        if (!isPerimeter(i, j, rows, cols) || board[i][j] == ' ' || node->children[board[i][j] - 'a'] == nullptr) {
             return;
         }
 
         char ch = board[i][j];
-        visited[i][j] = true;
+        board[i][j] = ' ';
         node = node->children[ch - 'a'];
         word += ch;
         
@@ -74,7 +74,7 @@ public:
         searchWords(board, node, i, j - 1, rows, cols, word, visited, ans); // Go left
         searchWords(board, node, i, j + 1, rows, cols, word, visited, ans); // Go right
 
-        visited[i][j] = false;
+        board[i][j] = ch;
         word.pop_back();
     }
 
