@@ -4,7 +4,7 @@ public:
         return (i >= 0 && i < rows && j >= 0 && j < cols);
     }
 
-    bool isPossible(vector<vector<char>>& grid, int i, int j, int rows, int cols, const string& word, int index) {
+    bool isPossible(vector<vector<char>>& grid, int i, int j, int &rows, int &cols, const string& word, int index) {
         if (index == word.length()) {
             return true;
         }
