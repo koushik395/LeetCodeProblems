@@ -1,20 +1,20 @@
 class MyHashSet {
 public:
-    unordered_set<int> st;
+    bitset<1000001> bit;
     MyHashSet() {
         
     }
     
     void add(int key) {
-        st.insert(key);
+        bit.set(key);
     }
     
     void remove(int key) {
-        if(st.find(key)!=st.end()) st.erase(key);
+        if(bit[key] & 1) bit.flip(key);
     }
     
     bool contains(int key) {
-        if(st.find(key)!=st.end()) return true;
+        if(bit[key]&1) return true;
         return false;
     }
 };
