@@ -1,46 +1,57 @@
 class Solution {
 public:
     vector<vector<int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
+    typedef pair<int, pair<int, int>> P;
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        if(m == 0 || n == 0 || grid[0][0] == 1)
+        if(m == 0 || n == 0 || grid[0][0] == 1 || grid[n-1][m-1] == 1)
         {
             return -1;
         }
-        queue<pair<int, int>> q;
-        q.push({0, 0});
-        grid[0][0] = 1;
-        int level = 0;
         auto isSafe = [&](int& x, int& y)
         {
             return x >= 0 && x < n && y >= 0 && y < m && !grid[x][y];
         };
-        while(!q.empty())
+        auto heuristic = [&](const int& x, const int& y)
         {
-            int qSize = q.size();
-            for(int i=0; i<qSize; i++)
+            return max(abs(n-1-x), abs(m-1-y));     // Max of Manhattan Distance from (x,y) -> (n, m)
+        };
+        vector<vector<int>> result(n, vector<int>(m, INT_MAX));
+        priority_queue<P, vector<P>, greater<P>> pq;
+        pq.push({0 + heuristic(0, 0), {0, 0}});
+        result[0][0] = 0;
+        while(!pq.empty())
+        {
+            int distHeuristic = pq.top().first;
+            auto node = pq.top().second;
+            int x = node.first;
+            int y = node.second;
+            int dist = distHeuristic - heuristic(x, y);
+            if(x == n-1 && y == m-1)
             {
-                auto curr = q.front();
-                int x = curr.first;
-                int y = curr.second;
-                if(x == n-1 && y == m-1)
+                for(int i=0; i<n; i++)
                 {
-                    return level+1;
-                }
-                q.pop();
-                for(auto& dir: directions)
-                {
-                    int newX = x+dir[0];
-                    int newY = y+dir[1];
-                    if(isSafe(newX, newY))
+                    for(int j=0; j<m; j++)
                     {
-                        q.push({newX, newY});
-                        grid[newX][newY] = 1;
+                        cout << result[i][j] << " ";
                     }
+                    cout << endl;
+                }
+                return dist+1;
+            }
+            pq.pop();
+            for(auto& dir: directions)
+            {
+                int newX = x + dir[0];
+                int newY = y + dir[1]; 
+                int wt = 1;
+                if(isSafe(newX, newY) && dist + wt < result[newX][newY])
+                {
+                    result[newX][newY] = dist + wt;
+                    pq.push({dist + wt + heuristic(newX, newY), {newX, newY}});
                 }
             }
-            level++;
         }
         return -1;
     }
