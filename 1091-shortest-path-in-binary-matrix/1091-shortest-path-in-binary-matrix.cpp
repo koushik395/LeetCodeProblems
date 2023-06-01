@@ -30,14 +30,6 @@ public:
             int dist = distHeuristic - heuristic(x, y);
             if(x == n-1 && y == m-1)
             {
-                for(int i=0; i<n; i++)
-                {
-                    for(int j=0; j<m; j++)
-                    {
-                        cout << result[i][j] << " ";
-                    }
-                    cout << endl;
-                }
                 return dist+1;
             }
             pq.pop();
