@@ -23,7 +23,7 @@ public:
                     res += ans;
                 }
                 
-                index++;
+                index++;//skip close brace
             }
             else
             {
