@@ -1,17 +1,13 @@
 class Solution {
 public:
-    int dfs(vector<int> adj[],vector<int>& informTime,int node,vector<int> &visited)
+    int dfs(vector<int> adj[],vector<int>& informTime,int node)
     {
-        visited[node] = true;
         int maxi = 0;
         int sum;
         for(auto& neigh: adj[node])
         {
-            if(!visited[neigh])
-            {
-                sum = informTime[node] + dfs(adj,informTime,neigh,visited);
-                maxi  = max(maxi,sum);
-            }
+            sum = informTime[node] + dfs(adj,informTime,neigh);
+            maxi  = max(maxi,sum);
         }
         return maxi;
     }
@@ -27,8 +23,6 @@ public:
                 adj[parent].push_back(child);
             }
         }
-        
-        vector<int> visited(n);
-        return dfs(adj,informTime,headID,visited);
+        return dfs(adj,informTime,headID);
     }
 };
