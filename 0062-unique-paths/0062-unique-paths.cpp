@@ -1,11 +1,8 @@
 class Solution {
 public:
-    int ans = 0;
-   
     int GeneratePaths(int m, int n, int x, int y, vector<vector<int>>& dp) {
         if (x == m - 1 && y == n - 1) {
-            ans++;
-            return 1; // Changed to 1, indicating a successful path
+            return 1;
         }
 
         if (dp[x][y] != -1) {
@@ -32,7 +29,7 @@ public:
             rightPaths = GeneratePaths(m, n, newx, newy, dp);
         }
 
-        dp[x][y] = downPaths + rightPaths; // Store the total number of paths in dp table
+        dp[x][y] = downPaths + rightPaths;
         return dp[x][y];
     }
     int uniquePaths(int m, int n) {
