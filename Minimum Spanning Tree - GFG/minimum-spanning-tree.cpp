@@ -13,33 +13,25 @@ class Solution
         vector<bool> mst(V,false);
         vector<int> parent(V,-1);
 
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq;
+        pq.push({0,0});
         key[0] = 0;
 
-        for(int i = 0;i<V;i++)
-        {
-            int mini = INT_MAX;
-            int u;
-            //find the min node
-            for(int v = 0;v <V;v++)
-            {
-                if(mst[v] == false && key[v] < mini)
-                {
-                    u = v;
-                    mini = key[v];
-                }
-            }
-            mst[u] = true;
+        while(pq.size()) {
+            int w = pq.top().first;
+            int node = pq.top().second;
+            mst[node] = 1;
+            pq.pop();
 
-            //check its adjacent nodes
-            for(auto& it:adj[u])
-            {
-                int v = it[0];
-                int w = it[1];
-                if(mst[v] == false && w < key[v])
-                {
-                    parent[v] = u;
-                    key[v] = w;
+            for(auto neg: adj[node]) {
+                int toGo = neg[0];
+                int toGoWeg = neg[1];
 
+                if(mst[toGo] == 0 && toGoWeg < key[toGo]) {
+
+                    key[toGo] = toGoWeg;
+                    parent[toGo] = node;
+                    pq.push({toGoWeg, toGo});
                 }
             }
         }
