@@ -1,5 +1,6 @@
 class Solution {
 public:
+    int count;
     void makeSet(vector<int> &parent,vector<int> &rank,int n)
     {
       for(int i = 0;i < n;i++)
@@ -22,7 +23,8 @@ public:
     {
        u = findParent(parent, u);
        v = findParent(parent, v);
-
+       if(u == v) return;
+        
        if(rank[u] < rank[v])
        {
          parent[u] = v;
@@ -35,36 +37,26 @@ public:
          parent[v] = u;
          rank[u]++; 
        }
-        
+       count--; 
     }
     
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n = isConnected.size();
+        count  = n;
         vector<int> parent(n);
         vector<int> rank(n);
         makeSet(parent,rank,n);
         
         for(int i = 0;i < n;i++)
         {
-            int u = findParent(parent,i);
-             for(int j = 0; j < n;j++)
+             for(int j = i+1; j < n;j++)
              {
-                 if(i!=j && isConnected[i][j])
+                 if(isConnected[i][j])
                  {
-                     int v = findParent(parent,j);
-                     if(u!=v)
-                     {
-                         unionset(u,v,parent,rank);
-                     }
+                    unionset(i,j,parent,rank);
                  }
              }
         }
-        for(int i = 0;i<n;i++)
-        {
-            findParent(parent,i);
-        }
-        
-        unordered_set<int> result(parent.begin(),parent.end());
-        return result.size();
+        return count;
     }
 };
