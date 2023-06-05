@@ -39,6 +39,7 @@ class Solution
         //find Timelines
         vector<int> visited(V,0);
         stack<int> st;
+        //O(V+E)
         for(int i = 0;i < V;i++)
         {
             if(!visited[i])
@@ -48,6 +49,7 @@ class Solution
         }
         
         //reverse Graph
+        //O(V+E)
         vector<int> adjT[V];
         for(int i = 0;i < V;i++)
         {
@@ -60,6 +62,7 @@ class Solution
         }
         
         //find SCC
+        //O(V+E)
         int scc = 0;
         while(!st.empty())
         {
