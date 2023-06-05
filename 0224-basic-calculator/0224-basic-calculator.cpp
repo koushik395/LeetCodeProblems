@@ -1,39 +1,34 @@
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> stk;
-        int num = 0;
+        auto it = s.find("(-");
+        if(it!=-1)
+        {
+            s.replace(it,2,"(0-");
+        }
+        vector<int> signs(2,1);//[1,1]
         int res = 0;
-        int sign = 1;
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s[i];
-
-            if (isdigit(c)) {
-                num = num * 10 + (c - '0');
-            } else if (c == '+') {
-                res += sign * num;
-                num = 0;
-                sign = 1;
-            } else if (c == '-') {
-                res += sign * num;
-                num = 0;
-                sign = -1;
-            } else if (c == '(') {
-                stk.push(res);
-                stk.push(sign);
-                res = 0;
-                sign = 1;
-            } else if (c == ')') {
-                res += sign * num;
-                num = 0;
-                res *= stk.top(); // sign before the parenthesis
-                stk.pop();
-                res += stk.top(); // result calculated before the parenthesis
-                stk.pop();
+        
+        for(int i = 0;i< s.length();i++)
+        {
+            if(isdigit(s[i]))
+            {
+                long long num = 0;
+                while(i < s.length() && isdigit(s[i]))
+                {
+                    num = num*10 + s[i]-'0';
+                    i++;
+                }
+                res += num*signs.back();
+                signs.pop_back();
+                i--;
+            }
+            else if(s[i]==')') signs.pop_back();
+            else if(s[i] != ' ')
+            {
+                signs.push_back(signs.back()*(s[i]=='-'?-1:1));
             }
         }
-
-        return res + (sign * num);
+        return res;
     }
 };
