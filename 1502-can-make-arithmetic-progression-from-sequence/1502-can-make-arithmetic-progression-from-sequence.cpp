@@ -13,10 +13,17 @@ public:
         if(mini == maxi)return true;
         
         int diff = ceil((maxi - mini)*1.0/(n-1));
-        for(int i = 0;i < n;i++)
+        int i = 0;
+        while(i < n)
         {
-            int num = mini + i * diff;
-            if(!mp[num]) return false;
+            if(arr[i] == mini+i*diff) i++;//correct pos;
+            else if((arr[i]-mini)%diff !=0) return false;
+            else
+            {
+                int pos = (arr[i] - mini)/diff;
+                if(pos < i || arr[pos] == arr[i]) return false;//infinite loop
+                swap(arr[pos],arr[i]);
+            }
         }
         return true;
     }
