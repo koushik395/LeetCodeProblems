@@ -1,12 +1,10 @@
 class Solution {
 public:
     bool canMakeArithmeticProgression(vector<int>& arr) {
-        unordered_map<int,bool> mp;
         int maxi = INT_MIN, mini = INT_MAX, n = 0;
         for(auto& num:arr)
         {
             ++n;
-            mp[num] = true;
             if(num < mini) mini = num;
             if(num > maxi) maxi = num;
         }
