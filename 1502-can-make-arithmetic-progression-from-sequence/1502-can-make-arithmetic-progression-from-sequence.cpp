@@ -1,12 +1,22 @@
 class Solution {
 public:
     bool canMakeArithmeticProgression(vector<int>& arr) {
-        sort(arr.begin(),arr.end());
-        int prevDiff = arr[1] - arr[0];
-        for(int i = 2;i< arr.size();i++)
+        unordered_map<int,bool> mp;
+        int maxi = INT_MIN, mini = INT_MAX, n = 0;
+        for(auto& num:arr)
         {
-            if(prevDiff!= arr[i]-arr[i-1])
-                return false;
+            ++n;
+            mp[num] = true;
+            if(num < mini) mini = num;
+            if(num > maxi) maxi = num;
+        }
+        if(mini == maxi)return true;
+        
+        int diff = ceil((maxi - mini)*1.0/(n-1));
+        for(int i = 0;i < n;i++)
+        {
+            int num = mini + i * diff;
+            if(!mp[num]) return false;
         }
         return true;
     }
