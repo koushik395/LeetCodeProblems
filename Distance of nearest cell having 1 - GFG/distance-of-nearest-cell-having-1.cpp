@@ -14,7 +14,7 @@ class Solution
         vector<vector<int>> res(n,vector<int>(m,0));
     
         queue < pair < pair < int, int > , int >> q;
-        int cntFresh = 0;
+
         for (int i = 0; i < n; i++) {
           for (int j = 0; j < m; j++) {
     
