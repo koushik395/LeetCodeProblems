@@ -55,7 +55,7 @@ public:
         // as soon as they’re found in the wordList.
         queue<string> q;
         b = beginWord;
-        q.push({beginWord});
+        q.push(beginWord);
 
         // beginWord initialised with level 1.
         mpp[beginWord] = 1;
