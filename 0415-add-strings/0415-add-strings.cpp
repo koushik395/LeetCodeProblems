@@ -11,9 +11,9 @@ public:
             if(j >= 0){sum += (num2[j] - '0');j--;}
             carry = sum / 10;
             sum = sum % 10;
-            res =  res + to_string(sum);
+            res = to_string(sum) + res;
         }
-        reverse(res.begin(), res.end());
+
         return res;
     }
 };
