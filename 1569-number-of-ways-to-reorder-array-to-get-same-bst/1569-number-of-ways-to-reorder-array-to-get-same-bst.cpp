@@ -18,7 +18,7 @@ class Solution {
         long long left_val = dfs(table,left,mod);
         long long right_val = dfs(table,right,mod);
         
-        int left_len = left.size(),right_len = right.size();
+        int left_len = left.size();
         return ((table[n-1][left_len] * left_val)%mod * right_val)%mod;
     }
 public:
