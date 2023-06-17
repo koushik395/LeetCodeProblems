@@ -11,9 +11,9 @@ public:
     int id=upper_bound(arr2.begin(),arr2.end(),prev)-arr2.begin();
         
     if(arr1[i]>prev)
-        ans=min(ans,helper(i+1,arr1[i],dp,arr1,arr2));
+        ans=min(ans,helper(i+1,arr1[i],dp,arr1,arr2));// notReplace
     if(id<arr2.size())
-        ans=min(ans,helper(i+1,arr2[id],dp,arr1,arr2)+1);
+        ans=min(ans,helper(i+1,arr2[id],dp,arr1,arr2)+1); //replace
     return dp[{i,prev}]=ans;
 }
     int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
