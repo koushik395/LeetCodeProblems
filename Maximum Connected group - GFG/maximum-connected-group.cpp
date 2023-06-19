@@ -44,7 +44,7 @@ class Solution {
   public:
     vector<vector<int>> direc = {{0,-1},{-1,0},{1,0},{0,1}};
     int MaxConnection(vector<vector<int>>& grid) {
-        int n = grid.size();
+        int n = grid.size(),onesCount = 0;
         DSU ds(n*n);
         
         auto isvalid = [&](const int &newx,const int &newy)
@@ -57,6 +57,7 @@ class Solution {
             for(int col = 0;col < n;col++)
             {
                 if(grid[row][col] == 0)continue;
+                onesCount++;
                 for(auto& it: direc)
                 {
                     int newx = row + it[0];
@@ -100,9 +101,9 @@ class Solution {
             }
         }
         // if matrix has all 1's
-        for(int cell = 0;cell < n*n;cell++)
+        if(onesCount == n * n)
         {
-            mx = max(mx,ds.size[ds.findParent(cell)]);
+            return ds.size[0];
         }
         return mx;
     }
