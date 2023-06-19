@@ -34,8 +34,8 @@ public:
             size[ulp_v] += size[ulp_u]; 
         }
         else {
-            parent[ulp_u] = ulp_v;
-            size[ulp_v] += size[ulp_u]; 
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v]; 
         }
     }
 };
