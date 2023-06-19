@@ -59,8 +59,6 @@ class Solution {
             int nodeRow = it[0];
             int nodeCol = it[1] + maxrow + 1;
             ds.unionBySize(nodeRow,nodeCol);
-            stoneNodes[nodeRow] = 1;
-            stoneNodes[nodeCol] = 1;
         }
         
         int cnt = 0;
