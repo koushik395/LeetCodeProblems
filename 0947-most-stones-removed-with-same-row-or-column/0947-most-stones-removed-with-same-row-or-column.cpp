@@ -52,17 +52,11 @@ public:
             int nodeRow = it[0];
             int nodeCol = it[1] + maxrow + 1;
             ds.unionBySize(nodeRow,nodeCol);
-            stoneNodes[nodeRow] = 1;
-            stoneNodes[nodeCol] = 1;
         }
         
         int cnt = 0;
-        for(auto& it: stoneNodes)
-        {
-            if(ds.findParent(it.first) == it.first)
-            {
-                cnt++;
-            }
+        for(int i=0;i<(maxrow+maxcol+1);i++){
+            if(ds.parent[i]==i && ds.size[i]>1) cnt+=1;   
         }
         return n - cnt; // number of stones - number of connected components
         // for each component of size n we can remove n-1 stones
