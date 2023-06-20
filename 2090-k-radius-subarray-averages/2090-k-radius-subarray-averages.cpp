@@ -4,7 +4,6 @@ public:
         int n = nums.size();
         vector<long long> pre(n+1);
         
-        pre[0] = nums[0]; 
         for(int i = 0;i < n;i++)
         {
             pre[i+1] = pre[i] + nums[i];
