@@ -10,7 +10,7 @@ public:
         return sum <= threshold;
     }
     int smallestDivisor(vector<int>& nums, int threshold) {
-        int low = 1, high = 1e6,ans = -1;
+        int low = 1, high = *max_element(nums.begin(),nums.end()),ans = -1;
         while(low <= high)
         {
             int mid = low + (high-low)/2;
