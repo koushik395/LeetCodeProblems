@@ -11,8 +11,6 @@ public:
             else
                 high = mid;
         }
-        // if(high < 0)
-        //     return 0;
         return high;
     }
 };
