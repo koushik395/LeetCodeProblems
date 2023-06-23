@@ -1,14 +1,21 @@
 class Solution {
 public:
     int longestArithSeqLength(vector<int>& nums) {
-        unordered_map<int, unordered_map<int, int>> dp;
-        int res = 2, n = nums.size();
-        for (int i = 0; i < n; ++i)
-            for (int j = i + 1; j < n; ++j)  {
-                int d = nums[j] - nums[i];
-                dp[d][j] = dp[d].count(i) ? dp[d][i] + 1 : 2;
-                res = max(res, dp[d][j]);
+        int n = nums.size();
+        if (n <= 2)
+            return n;
+
+        int longest = 2;
+        vector<unordered_map<int, int>> dp(n);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                int diff = nums[i] - nums[j];
+                dp[i][diff] = dp[j].count(diff) ? dp[j][diff] + 1 : 2;
+                longest = max(longest, dp[i][diff]);
             }
-        return res;
+        }
+
+        return longest;
     }
 };
