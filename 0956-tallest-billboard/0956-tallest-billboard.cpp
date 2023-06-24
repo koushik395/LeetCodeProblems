@@ -24,14 +24,14 @@ public:
             if (diff == 0)return 0;
                 return INT_MIN;
         }
-        int &ans = dp[ind][diff + 5000];
-        if (ans != -1) return ans;
+        // int &ans = dp[ind][diff + 5000];
+        if (dp[ind][diff + 5000] != -1) return dp[ind][diff + 5000];
         
         int nottake = func(ind + 1 , diff, rods);
         int takerod1 = rods[ind] + func(ind + 1 , diff +rods[ind],rods);
         int takerod2 = func(ind + 1 , diff - rods[ind],rods);
         
-        return ans = max({nottake, takerod1, takerod2});
+        return dp[ind][diff + 5000] = max({nottake, takerod1, takerod2});
     }
     int tallestBillboard(vector<int>& rods) {
         n = rods.size();
