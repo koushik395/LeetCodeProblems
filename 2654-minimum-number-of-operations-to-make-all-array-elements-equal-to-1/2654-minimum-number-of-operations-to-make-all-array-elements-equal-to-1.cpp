@@ -20,6 +20,6 @@ public:
             }
         }
         
-        return n + mini -1;
+        return (n-1) + mini; // n-1 elements to be made 1 + min number of operations to make a                                  number 1.
     }
 };
