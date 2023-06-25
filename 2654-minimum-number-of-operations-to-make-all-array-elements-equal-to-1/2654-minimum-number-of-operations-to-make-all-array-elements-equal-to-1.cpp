@@ -11,15 +11,15 @@ public:
         
         if(onesCount) return n - onesCount;
         
-        int mi = INT_MAX;
+        int mini = INT_MAX;
         for(int i = 0; i < n; i++) {
             int res = nums[i];
             for(int j = i; j < n; j++) {
                 res = __gcd(nums[j], res);
-                if(res == 1) mi = min(mi, j - i);
+                if(res == 1) mini = min(mini, j - i);
             }
         }
         
-        return n + mi -1;
+        return n + mini -1;
     }
 };
