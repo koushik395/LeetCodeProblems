@@ -15,21 +15,23 @@ public:
 //     }
     int minimumTotal(vector<vector<int>>& triangle) {
         int n = triangle.size();
-        vector<vector<int>> dp(n,vector<int>(n,-1));
+        vector<int> next(n,0);
 	    for(int i = 0; i < n;i++)
         {
-            dp[n-1][i] = triangle[n-1][i];
+            next[i] = triangle[n-1][i];
         }
         
         for(int i = n-2;i >= 0;i--)
         {
+            vector<int> curr(n,0);
             for(int j = 0;j <= i;j++)
             {
-                int d = triangle[i][j] + dp[i+1][j];
-                int dia = triangle[i][j] + dp[i+1][j+1];
-                dp[i][j] = min(d,dia);
+                int d = triangle[i][j] + next[j];
+                int dia = triangle[i][j] + next[j+1];
+                curr[j] = min(d,dia);
             }
+            next = curr;
         }
-        return dp[0][0];
+        return next[0];
     }
 };
