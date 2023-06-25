@@ -3,10 +3,6 @@ public:
     int mod = 1e9+7;
     int find(vector<int>& locations, int start, int finish, int fuel,vector<vector<int>> &dp)
     {
-        if(fuel < 0) 
-        {
-            return 0;
-        }
         if(dp[start][fuel] != -1) return dp[start][fuel];
         
         int paths = 0;
