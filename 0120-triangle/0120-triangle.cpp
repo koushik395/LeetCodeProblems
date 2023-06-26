@@ -1,28 +1,37 @@
 class Solution {
 public:
-    int mini=INT_MAX;
+//     int find(int i,int j,int n,vector<vector<int>>& triangle,vector<vector<int>> &dp)
+//     {
+//     	if(i == n-1)
+//     	{
+//     		return triangle[n-1][j];
+//     	}
     
-    int solve(vector<vector<int>>&tri, int col, int row, vector<vector<int>>& dp)
-    {
-        if(col < 0 || col > row) return 1e9;
-        if(col==0 && row==0)
-        {
-            return tri[row][col];
-        }
-        if(dp[row][col]!=-1) return dp[row][col];
-        
-        int up=tri[row][col]+solve(tri,col,row-1,dp);
-        int left = tri[row][col]+solve(tri,col-1,row-1,dp);
-        
-        return dp[row][col]= min(left,up);
-    }
+//     	if(dp[i][j]!=-1) return dp[i][j];
+//     	int down = triangle[i][j] + find(i+1,j,n,triangle,dp);
+//     	int diag = triangle[i][j] + find(i+1,j+1,n,triangle,dp);
+    
+//     	return dp[i][j] = min(down,diag);
+//     }
     int minimumTotal(vector<vector<int>>& triangle) {
-        int m=triangle.size();
-        vector<vector<int>>dp(m,vector(m,-1));
-        for(int i=0;i<m;++i)
+        int n = triangle.size();
+        vector<int> next(n,0);
+	    for(int i = 0; i < n;i++)
         {
-            mini=min(mini,solve(triangle,i,m-1,dp));
+            next[i] = triangle[n-1][i];
         }
-        return mini;
+        
+        for(int i = n-2;i >= 0;i--)
+        {
+            vector<int> curr(n,0);
+            for(int j = 0;j <= i;j++)
+            {
+                int d = triangle[i][j] + next[j];
+                int dia = triangle[i][j] + next[j+1];
+                curr[j] = min(d,dia);
+            }
+            next = curr;
+        }
+        return next[0];
     }
 };
