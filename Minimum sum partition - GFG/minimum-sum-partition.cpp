@@ -7,42 +7,40 @@ class Solution{
 
   public:
 	int minDifference(int arr[], int n)  { 
-	    int totSum = 0;
-
-          for (int i = 0; i < n; i++) {
-            totSum += arr[i];
-          }
+	    int totalSum = accumulate(arr,arr+n,0);
+	
+    	int k = totalSum;
+    	vector<bool> prev(k+1,false);
     
-          vector < vector < bool >> dp(n, vector < bool > (totSum + 1, false));
+    	prev[0] = true;
     
-          for (int i = 0; i < n; i++) {
-            dp[i][0] = true;
-          }
+    	if(arr[0]<=k)
+    		prev[arr[0]] = true;
     
-          if (arr[0] <= totSum)
-            dp[0][arr[0]] = true;
+    	for(int ind = 1; ind<n; ind++){
+    		vector<bool> cur(k+1,false);
+    		cur[0] = true;
+    		for(int target= 1; target<=k; target++){
+    			bool notTaken = prev[target];
     
-          for (int ind = 1; ind < n; ind++) {
-            for (int target = 1; target <= totSum; target++) {
+    			bool taken = false;
+    				if(arr[ind]<=target)
+    					taken = prev[target-arr[ind]];
     
-              bool notTaken = dp[ind - 1][target];
+    			cur[target]= notTaken||taken;
+    		}
+    		prev = cur;
+    	}
     
-              bool taken = false;
-              if (arr[ind] <= target)
-                taken = dp[ind - 1][target - arr[ind]];
-    
-              dp[ind][target] = notTaken || taken;
-            }
-          }
-    
-          int mini = 1e9;
-          for (int i = 0; i <= totSum; i++) {
-            if (dp[n - 1][i] == true) {
-              int diff = abs(i - (totSum - i));
-              mini = min(mini, diff);
-            }
-          }
-          return mini;
+    	int mini = 1e9;
+    	for(int s1 = 0;s1 <= totalSum/2;s1++)
+    	{
+    		if(prev[s1]==true)
+    		{
+    			mini  = min(mini,abs(s1-(totalSum-s1)));
+    		}
+    	}
+    	return mini;
     } 
 };
 
