@@ -3,61 +3,32 @@ public:
     int cherryPickupRecursive(vector<vector<vector<int>>> 
             &dp,vector<vector<int>>& grid, int row1, int col1,int col2) {
         
-    int n = grid.size();
-    int row2 = row1 + col1 - col2;
-    if (row1 >= n || col1 >= n || row2 >= n || col2 >= n || grid[row1][col1] == -1 || grid[row2][col2] == -1) {
-        return INT_MIN;
-    }
+        int n = grid.size();
+        int row2 = row1 + col1 - col2;
+        if (row1 >= n || col1 >= n || row2 >= n || col2 >= n || grid[row1][col1] == -1 || grid[row2][col2] == -1) {
+            return INT_MIN;
+        }
 
-    if ((row1 == n - 1 && col1 == n - 1)) {
-        return grid[row1][col1];
+        if (row1 == n - 1 && col1 == n - 1) {
+            return grid[row1][col1];
+        }
+
+        int cherries = (row1 == row2 && col1 == col2) ? grid[row1][col1] : grid[row1][col1] + grid[row2][col2];
+
+        if(dp[row1][col1][col2] != -1) return dp[row1][col1][col2];
+
+        int maxCherries = max({
+            cherryPickupRecursive(dp,grid, row1 + 1, col1,col2),
+            cherryPickupRecursive(dp,grid, row1 + 1, col1, col2 + 1),  
+            cherryPickupRecursive(dp,grid, row1, col1 + 1,col2),
+            cherryPickupRecursive(dp,grid, row1, col1 + 1,col2 + 1)
+        });
+
+        return dp[row1][col1][col2] = cherries + maxCherries;
     }
-    
-    int cherries = (row1 == row2 && col1 == col2) ? grid[row1][col1] : grid[row1][col1] + grid[row2][col2];
-    
-    if(dp[row1][col1][col2] != -1) return dp[row1][col1][col2];
-        
-    int maxCherries = max({
-        cherryPickupRecursive(dp,grid, row1 + 1, col1,col2),
-        cherryPickupRecursive(dp,grid, row1 + 1, col1, col2 + 1),  
-        cherryPickupRecursive(dp,grid, row1, col1 + 1,col2),
-        cherryPickupRecursive(dp,grid, row1, col1 + 1,col2 + 1)
-    });
-    
-    return dp[row1][col1][col2] = cherries + maxCherries;
-}
     int cherryPickup(vector<vector<int>>& grid) {
         int n = grid.size();
         vector<vector<vector<int>>> dp(n, vector<vector<int>>(n, vector<int>(n, -1)));
         return max(0,cherryPickupRecursive(dp,grid,0,0,0));
-//         // Base case
-//         dp[n-1][n-1][n-1] = grid[n-1][n-1];
-
-//         for (int row1 = n-1; row1 >= 0; row1--) {
-//             for (int col1 = n-1; col1 >= 0; col1--) {
-//                 for (int col2 = n-1; col2 >= 0; col2--) {
-//                     int row2 = row1 + col1 - col2;
-
-//                     if (row1 >= n || col1 >= n || row2 >= n || col2 >= n ||
-//                         grid[row1][col1] == -1 || grid[row2][col2] == -1) {
-//                         dp[row1][col1][col2] = INT_MIN;
-//                         continue;
-//                     }
-
-//                     int cherries = (row1 == row2 && col1 == col2) ? grid[row1][col1] : grid[row1][col1] + grid[row2][col2];
-
-//                     int maxCherries = max({
-//                         dp[row1 + 1][col1][col2],
-//                         dp[row1 + 1][col1][col2 + 1],
-//                         dp[row1][col1 + 1][col2],
-//                         dp[row1][col1 + 1][col2 + 1]
-//                     });
-
-//                     dp[row1][col1][col2] = cherries + maxCherries;
-//                 }
-//             }
-//         }
-
-//         return dp[0][0][0];
     }
 };
