@@ -20,7 +20,7 @@ class Solution{
           }
     
           if (arr[0] <= totSum)
-            dp[0][totSum] = true;
+            dp[0][arr[0]] = true;
     
           for (int ind = 1; ind < n; ind++) {
             for (int target = 1; target <= totSum; target++) {
