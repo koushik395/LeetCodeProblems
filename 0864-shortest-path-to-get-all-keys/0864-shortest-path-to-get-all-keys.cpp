@@ -38,7 +38,7 @@ public:
                         char c = grid[i][j];
                         if (c >= 'a' && c <= 'f')
                         keys |= 1 << (c - 'a');
-                        if (c >= 'A' && c <= 'F' && ((keys >> (c - 'A')) & 1) == 0) {
+                        if (c >= 'A' && c <= 'F' && !(keys & (1 << (c-'A')))) {
                             continue;
                         }
                         if (!visited.count(to_string(keys) + " " + to_string(i) + " " + to_string(j))) {
