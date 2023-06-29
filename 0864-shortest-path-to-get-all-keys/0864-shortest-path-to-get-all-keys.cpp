@@ -34,9 +34,9 @@ public:
                     int i = curr[1] + d[0];
                     int j = curr[2] + d[1];
                     int keys = curr[0];
-                    if (i >= 0 && i < m && j >= 0 && j < n) {
+                    if (i >= 0 && i < m && j >= 0 && j < n && grid[i][j]!='#') {
                         char c = grid[i][j];
-                        if (c == '#') continue;
+                        // if (c == '#') continue;
                         if (c >= 'a' && c <= 'f')
                         keys |= 1 << (c - 'a');
                         if (c >= 'A' && c <= 'F' && ((keys >> (c - 'A')) & 1) == 0) {
