@@ -36,7 +36,7 @@ public:
     int latestDayToCross(int n, int m, vector<vector<int>>& C) {
         int row = C.size();
         int col = C[0].size();
-        DSU dsu(m * n + 2);
+        DSU dsu(m * n + 1);
         vector<vector<int>> grid(n, vector<int>(m, 1));
         vector<vector<int>> neibs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
