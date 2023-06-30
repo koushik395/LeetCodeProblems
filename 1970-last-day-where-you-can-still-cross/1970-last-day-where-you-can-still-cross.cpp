@@ -45,7 +45,7 @@ public:
             C[i][1]--;
         }
 
-        auto index = [m](int x, int y) {
+        auto index = [&](int &x, int &y) {
             return x * m + y + 1;
         };
 
