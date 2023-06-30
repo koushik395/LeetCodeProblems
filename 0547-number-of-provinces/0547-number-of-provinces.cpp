@@ -1,62 +1,35 @@
 class Solution {
 public:
-    int count;
-    void makeSet(vector<int> &parent,vector<int> &rank,int n)
-    {
-      for(int i = 0;i < n;i++)
-      {
-        parent[i] = i;
-        rank[i] = 0;
-      }
+    void bfs(int node, vector<vector<int>>& isConnected, vector<bool>& visit) {
+        queue<int> q;
+        q.push(node);
+        visit[node] = true;
+
+        while (!q.empty()) {
+            node = q.front();
+            q.pop();
+
+            for (int i = 0; i < isConnected.size(); i++) {
+                if (isConnected[node][i] && !visit[i]) {
+                    q.push(i);
+                    visit[i] = true;
+                }
+            }
+        }
     }
 
-    int findParent(vector<int> &parent,int node)
-    {
-      if(parent[node] == node)
-      {
-        return node;
-      }
-      return parent[node] = findParent(parent, parent[node]);
-    }
-
-    void unionset(int u,int v,vector<int>& parent,vector<int> &rank)
-    {
-       u = findParent(parent, u);
-       v = findParent(parent, v);
-       if(u == v) return;
-        
-       if(rank[u] < rank[v])
-       {
-         parent[u] = v;
-       }
-       else if(rank[v] < rank[u])
-       {
-         parent[v] = u;
-       }
-       else{
-         parent[v] = u;
-         rank[u]++; 
-       }
-       count--; 
-    }
-    
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n = isConnected.size();
-        count  = n;
-        vector<int> parent(n);
-        vector<int> rank(n);
-        makeSet(parent,rank,n);
-        
-        for(int i = 0;i < n;i++)
-        {
-             for(int j = i+1; j < n;j++)
-             {
-                 if(isConnected[i][j])
-                 {
-                    unionset(i,j,parent,rank);
-                 }
-             }
+        int numberOfComponents = 0;
+        vector<bool> visit(n);
+
+        for (int i = 0; i < n; i++) {
+            if (!visit[i]) {
+                numberOfComponents++;
+                bfs(i, isConnected, visit);
+            }
         }
-        return count;\
+
+        return numberOfComponents;
     }
 };
