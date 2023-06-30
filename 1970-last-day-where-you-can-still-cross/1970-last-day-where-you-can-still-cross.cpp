@@ -1,54 +1,74 @@
+class DSU {
+private:
+    vector<int> p;
+
+public:
+    DSU(int N) {
+        p.resize(N);
+        for (int i = 0; i < N; i++) {
+            p[i] = i;
+        }
+    }
+
+    int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+
+    void unionSet(int x, int y) {
+        int xr = find(x);
+        int yr = find(y);
+        p[xr] = yr;
+    }
+};
+
 class Solution {
 public:
-    vector<vector<int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    bool isPossible(vector<vector<int>>& cells,int row,int col,int mid)
-    {
-        vector<vector<bool>> grid(row,vector<bool>(col,0));
-        for(int i =  0;i < mid;i++)
-        {
-            grid[cells[i][0]-1][cells[i][1]-1] = 1;
+    int latestDayToCross(int n, int m, vector<vector<int>>& C) {
+        int row = C.size();
+        int col = C[0].size();
+        DSU dsu(m * n + 2);
+        vector<vector<int>> grid(n, vector<int>(m, 1));
+        vector<vector<int>> neibs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        for (int i = 0; i < row; i++) {
+            C[i][0]--;
+            C[i][1]--;
         }
-        queue<pair<int,int>> q;
-        for(int i = 0;i < col;i++)
-        {
-            if(grid[0][i] == 0)
-            {
-                q.push({0,i});
-                grid[0][i] = 1;
+
+        auto index = [m](int x, int y) {
+            return x * m + y + 1;
+        };
+
+        for (int i = row - 1; i >= 0; i--) {
+            int x = C[i][0];
+            int y = C[i][1];
+
+            grid[x][y] = 0;
+            for (auto& neib : neibs) {
+                int dx = neib[0];
+                int dy = neib[1];
+                int newX = x + dx;
+                int newY = y + dy;
+                int ind = index(newX, newY);
+                if (newX >= 0 && newX < n && newY >= 0 && newY < m && grid[newX][newY] == 0) {
+                    dsu.unionSet(ind, index(x, y));
+                }
+            }
+            if (x == 0) {
+                dsu.unionSet(0, index(x, y));
+            }
+            if (x == n - 1) {
+                dsu.unionSet(m * n + 1, index(x, y));
+            }
+
+            if (dsu.find(0) == dsu.find(m * n + 1)) {
+                return i;
             }
         }
-        
-        while(!q.empty())
-        {
-            auto [r,c] = q.front();
-            q.pop();
-            if(r == row-1) return true;
-            for(auto& it: directions)
-            {
-                int nr = r + it[0];
-                int nc = c + it[1];
-                if(nr < 0 || nr == row || nc < 0 || nc == col || grid[nr][nc]==1) continue;
-                grid[nr][nc] = 1;
-                q.push({nr,nc});
-            }
-        }
-        return false;
-    }
-    int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-        int low = 1,high = cells.size(),mid,ans = 0;
-        while(low <= high)
-        {
-            int mid = low + (high-low)/2;
-            if(isPossible(cells,row,col,mid))
-            {
-                ans = mid;
-                low = mid+1;
-            }
-            else
-            {
-                high = mid-1;
-            }
-        }
-        return ans;
+
+        return -1; // or any other suitable value
     }
 };
