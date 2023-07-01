@@ -14,6 +14,10 @@ public:
             v[i] += nums[start];
             solve(start+1,nums,v,k);
             v[i] -= nums[start];
+            if(v[i] == 0)
+            {
+                break;
+            }
         }
     }
     
