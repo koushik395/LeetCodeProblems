@@ -5,8 +5,7 @@ public:
     {
         if(i < 0 || j < 0 || i == n || j == m || grid[i][j] == 0) return 0;
         
-        int total = 0;
-        total = grid[i][j];
+        int total = grid[i][j];
         int val = grid[i][j];
         grid[i][j] = 0;
         
