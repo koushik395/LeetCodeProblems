@@ -16,11 +16,10 @@ public:
             int newx = i + it[0];
             int newy = j + it[1];
             
-            maxi = max(maxi,dfs(newx,newy,grid,n,m));
+            maxi = max(maxi,total + dfs(newx,newy,grid,n,m));
         }
-        total = total +maxi;
         grid[i][j] = val;
-        return total;
+        return maxi;
     }
     int getMaximumGold(vector<vector<int>>& grid) {
         int n  = grid.size();
