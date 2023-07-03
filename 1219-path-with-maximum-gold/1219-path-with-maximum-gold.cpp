@@ -15,17 +15,18 @@ public:
         {
             int newx = i + it[0];
             int newy = j + it[1];
-            maxi = max(maxi,total + dfs(newx,newy,grid,n,m));
+            
+            maxi = max(maxi,dfs(newx,newy,grid,n,m));
         }
-        
+        total = total +maxi;
         grid[i][j] = val;
-        return maxi;
+        return total;
     }
     int getMaximumGold(vector<vector<int>>& grid) {
         int n  = grid.size();
         int m  = grid[0].size();
         
-        int maxi = 0;
+        int maxi = 0;;
         for(int i = 0;i < n;i++)
         {
             for(int j = 0;j < m;j++)
