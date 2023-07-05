@@ -12,22 +12,12 @@ public:
                 if(cnt[0] >= 1)
                 {
                     maxi = max(maxi,cnt[1]);
-                    while(i <= j && nums[i] != 0)
-                    {
-                        cnt[1]--;
-                        i++;
-                    }
+                    while(i <= j && nums[i] != 0) cnt[1]--, i++;
                     i++;
                 }
-                else
-                {
-                    cnt[0]++;
-                }
+                else cnt[0]++;
             }
-            else
-            {
-                cnt[1]++;
-            }
+            else cnt[1]++;
             j++;
         }
         
