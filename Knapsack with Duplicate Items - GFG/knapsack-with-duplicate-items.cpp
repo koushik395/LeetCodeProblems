@@ -29,27 +29,27 @@ public:
     }
     int knapSack(int n, int w, int profit[], int weight[])
     {
-        vector<vector<int>> dp(n,vector<int>(w+1,0));
+        vector<int> prev(w+1,0);
         for(int W = 0 ; W <= w;W++)
         {
-            dp[0][W] = (W/weight[0]) * profit[0];
+            prev[W] = (W/weight[0]) * profit[0];
         }
         
         for(int ind = 1;ind < n;ind++)
         {
             for(int W=0; W <= w;W++)
             {
-                int nottake = 0 + dp[ind-1][W];
+                int nottake = 0 + prev[W];
                 int take = INT_MIN;
                 if(weight[ind] <= W)
                 {
-                    take = profit[ind] + dp[ind][W-weight[ind]];
+                    take = profit[ind] + prev[W-weight[ind]];
                 }
                 
-                dp[ind][W] = max(take,nottake);
+                prev[W] = max(take,nottake);
             }
         }
-        return dp[n-1][w];
+        return prev[w];
     }
 };
 
