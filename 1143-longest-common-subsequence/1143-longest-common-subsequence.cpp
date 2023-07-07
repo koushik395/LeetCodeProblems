@@ -2,24 +2,25 @@ class Solution {
 public:
     int lcs(string text1, string text2,int m,int n)
     {
-        vector<vector<int>> dp(m+1,vector<int>(n+1));
+        vector<int> prev(m+1,0),curr(n+1,0);
         for(int i=0;i<=m;i++)
         {
             for(int j=0;j<=n;j++)
             {
                 if(i==0 || j==0)
-                    dp[i][j] =0;
+                    curr[j] =0;
                 else if(text1[i-1] == text2[j-1])
-                    dp[i][j] = 1+ dp[i-1][j-1];
+                    curr[j] = 1+ prev[j-1];
                 else
                 {
-                    int a = dp[i-1][j];
-                    int b = dp[i][j-1];
-                    dp[i][j] = max(a,b);
+                    int a = prev[j];
+                    int b = curr[j-1];
+                    curr[j] = max(a,b);
                 }
             }
+            prev = curr;
         }
-        return dp[m][n];
+        return prev[n];
     }
     int longestCommonSubsequence(string text1, string text2) {
         int m = text1.length();
