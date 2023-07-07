@@ -3,9 +3,9 @@ public:
     int lcs(string text1, string text2,int m,int n)
     {
         vector<vector<int>> dp(m+1,vector<int>(n+1));
-        for(int i=0;i<m+1;i++)
+        for(int i=0;i<=m;i++)
         {
-            for(int j=0;j<n+1;j++)
+            for(int j=0;j<=n;j++)
             {
                 if(i==0 || j==0)
                     dp[i][j] =0;
