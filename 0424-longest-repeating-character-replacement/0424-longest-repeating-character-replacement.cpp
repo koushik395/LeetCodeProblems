@@ -1,15 +1,13 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        int res = 0, maxf = 0;
-        unordered_map<int, int> count;
-        for (int i = 0; i < s.length(); ++i) {
-            maxf = max(maxf, ++count[s[i]]);
-            if (res - maxf < k)
-                res++;
-            else
-                count[s[i - res]]--;
+        int maxf = 0, i = 0, n = s.length();
+        vector<int> count(26);
+        for (int j = 0; j < n; ++j) {
+            maxf = max(maxf, ++count[s[j] - 'A']);
+            if (j - i + 1 > maxf + k)
+                --count[s[i++] - 'A'];
         }
-        return res;
+        return n - i;
     }
 };
