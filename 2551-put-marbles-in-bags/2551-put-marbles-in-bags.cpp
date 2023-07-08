@@ -5,7 +5,8 @@ public:
         vector<int> adjSum;
         for(int i = 0;i < n-1;i++)
         {
-            adjSum.push_back(weights[i] + weights[i+1]);
+            adjSum.push_back(weights[i] + weights[i+1]); 
+            // only adjacent pairs where partition is done is added to final sum
         }
         
         long long minSum = 0,maxSum = 0;
