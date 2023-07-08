@@ -1,27 +1,27 @@
 class Solution {
 public:
-    bool isAlternating(vector<int>& nums, int i, int l) {
-        int distance = i - l;
+    bool isAlternating(vector<int>& nums, int right, int left) {
+        int distance = right - left;
         if (distance % 2 == 1) {
             // Odd distance, check for consecutive increasing elements
-            if (nums[i] - nums[l] == 1 && nums[l + 1] - nums[l] == 1)
+            if (nums[right] - nums[left] == 1 && nums[left + 1] - nums[left] == 1)
                 return true;
             return false;
         } else {
             // Even distance, check for equal elements
-            return nums[i] - nums[l] == 0;
+            return nums[right] - nums[left] == 0;
         }
     }
 
     int alternatingSubarray(vector<int>& nums) {
         int maxLength = 0;
-        int l = 0;
+        int left = 0;
         
-        for (int i = 1; i < (int)nums.size(); i++) {
-            while (!isAlternating(nums, i, l)) {
-                l++;
+        for (int right = 1; right < nums.size(); right++) {
+            while (!isAlternating(nums, right, left)) {
+                left++;
             }
-            maxLength = max(maxLength, i - l + 1);
+            maxLength = max(maxLength, right - left + 1);
         }
         
         return (maxLength <= 1) ? -1 : maxLength;
