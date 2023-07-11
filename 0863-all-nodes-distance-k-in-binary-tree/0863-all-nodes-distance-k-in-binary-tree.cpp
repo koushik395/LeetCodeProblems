@@ -34,14 +34,13 @@ public:
         
         int dist = 0;
         
-        TreeNode* front;
         while(!q.empty())
         {
             int size = q.size();
             bool flag = false;
             for(int i=0;i<size;i++)
             {
-                front = q.front();
+                TreeNode* front = q.front();
                 q.pop();
                 
                 if(dist == k) ans.push_back(front->val);
