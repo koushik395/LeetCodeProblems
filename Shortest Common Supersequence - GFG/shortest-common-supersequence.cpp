@@ -12,8 +12,7 @@ using namespace std;
 class Solution
 {
     public:
-    string s="";
-    void lcs(string text1, string text2,int m,int n)
+    int lcs(string text1, string text2,int m,int n)
     {
         vector<vector<int>> dp(m+1,vector<int>(n+1));
         for(int i=0;i<m+1;i++)
@@ -34,33 +33,12 @@ class Solution
                 }
             }
         }
-
-        int i = m,j = n;
-        while(i > 0 && j > 0)
-        {
-            if(text1[i-1] == text2[j-1])
-            {
-                s = text1[i-1] + s;
-                i--, j--;
-            }
-            else if(dp[i-1][j] > dp[i][j-1])
-            {
-                s = text1[i-1] + s;
-                i--;
-            }
-            else
-            {
-                s = text2[j-1] + s;
-                j--;
-            }
-        }
-        while(i > 0) s = text1[i-1] + s, i--;
-        while(j > 0) s = text2[j-1] + s, j--;
+        
+        return dp[m][n];
     }
     int shortestCommonSupersequence(string str1, string str2, int m, int n)
     {
-        lcs(str1,str2,m,n);
-        return s.length();
+        return (m+n) - lcs(str1,str2,m,n);
     }
 };
 
