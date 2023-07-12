@@ -22,37 +22,28 @@ public:
                 }
             }
         }
-        int temp1 = m,temp2 = n;
-        while(dp[m][n]>0)
+
+        int i = m,j = n;
+        while(i > 0 && j > 0)
         {
-            if(text1[m-1] == text2[n-1])
+            if(text1[i-1] == text2[j-1])
             {
-                s = text1[m-1] + s;
-                m--;
-                n--;
+                s = text1[i-1] + s;
+                i--, j--;
+            }
+            else if(dp[i-1][j] > dp[i][j-1])
+            {
+                s = text1[i-1] + s;
+                i--;
             }
             else
-                if(dp[m-1][n] > dp[m][n-1])
-                {
-                    s = text1[m-1] + s;
-                    m--;   
-                }
-                else
-                {
-                    s = text2[n-1] + s;
-                    n--;
-                }
-        }  
-        while(m>0)
-        {
-            s = text1[m-1] + s;
-            m--;
+            {
+                s = text2[j-1] + s;
+                j--;
+            }
         }
-        while(n>0)
-        {
-            s = text2[n-1] + s;
-            n--;
-        }
+        while(i > 0) s = text1[i-1] + s, i--;
+        while(j > 0) s = text2[j-1] + s, j--;
     }
     string shortestCommonSupersequence(string str1, string str2) {
         int m = str1.length();
