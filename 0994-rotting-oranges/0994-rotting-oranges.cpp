@@ -28,12 +28,11 @@ public:
         int tm = 0;
 
         int cnt = 0; //to track no. of fresh oranges visited
-        int t = -1;
         while (!q.empty()) {
           int r = q.front().first.first;
           int c = q.front().first.second;
-          t = q.front().second;
-          // tm = max(tm, t);
+          int t = q.front().second;
+          tm = max(tm, t);
           q.pop();
 
           for(auto& dir: directions) {
@@ -54,6 +53,6 @@ public:
         // if all oranges are not rotten
         if (cnt != cntFresh) return -1;
 
-        return t == -1?0:t;
+        return tm;
     }
 };
