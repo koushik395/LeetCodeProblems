@@ -2,28 +2,26 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
         int n = prices.size();
-        if(n==0) return 0;
-    
-        vector<vector<int>> dp(n+1,vector<int>(2,0));
+        vector<int> curr(2,0),next(2,0);
+        next[0] = next[1] = 0;
 
-        // base condition is handled by initializing dp array as 0
-
-          for(int ind= n-1; ind>=0; ind--){
-            for(int buy=0; buy<=1; buy++){
-                int profit;
-
-                if(buy==0){// We can buy the stock
-                    profit = max(0+dp[ind+1][0], -prices[ind] + dp[ind+1][1]);
+        for(int ind = n-1;ind >= 0;ind--)
+        {
+            for(int buy = 0;buy <= 1;buy++)
+            {
+                 int profit = 0;
+                if(buy)
+                {
+                    profit = max(-prices[ind] + next[0] , 0 + next[1]);
                 }
-
-                if(buy==1){// We can sell the stock
-                    profit = max(0+dp[ind+1][1], prices[ind] -fee + dp[ind+1][0]);
+                else
+                {
+                    profit = max(prices[ind] - fee + next[1], 0 + next[0]);
                 }
-
-                dp[ind][buy]  = profit;
+                curr[buy] = profit;
             }
+            next = curr;
         }
-
-        return dp[0][0];
+        return next[1];
     }
 };
