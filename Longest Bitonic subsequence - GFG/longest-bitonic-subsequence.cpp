@@ -18,6 +18,8 @@ class Solution{
                 }
             }
         }
+        
+        int maxi = 1;
         for(int i=n-1; i>=0; i--){
             for(int prev_index = n-1; prev_index > i; prev_index--){
     
@@ -25,13 +27,9 @@ class Solution{
                     suffix[i] = 1 + suffix[prev_index];
                 }
             }
-        } 
-        
-        int maxi = 1;
-        for(int i = 0;i < n;i++)
-        {
             maxi = max(maxi,prefix[i] + suffix[i]-1);
-        }
+        } 
+
         return maxi;
 	}
 };
