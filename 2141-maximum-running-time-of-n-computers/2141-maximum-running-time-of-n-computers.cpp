@@ -1,5 +1,10 @@
 class Solution {
 public:
+    /* count the number of (batteries_charge > time) since they can charge the 
+           computers for the period of the required time.
+           Now find out how many computers are left out and the total batteries charge we have.
+           If(Total_charge/number_of_computers_left_out >=  required_time) then we charge the 
+           remaining computers with remaining batteries charge.*/
     long long numBatt;
     bool isPossible(vector<int>& batteries,long long time,long long comp)
     {
@@ -14,8 +19,8 @@ public:
             } 
         }
         
-        int numComp = comp - (numBatt-lessBatt); // number of remaining computers
-        return (totalTime >= time * numComp);
+        int numCompLeft = comp - (numBatt-lessBatt);
+        return (totalTime >= time * numCompLeft);
     }
     long long maxRunTime(int n, vector<int>& batteries) {
         long long low = 1,high;
