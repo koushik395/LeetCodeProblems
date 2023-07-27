@@ -2,15 +2,16 @@ class Solution {
 public:
     bool isPossible(vector<int>& batteries,long long time,long long comp)
     {
-        long long totalTime = 0;
+        long long totalTime = 0,cnt = 0;
         
         for(auto& btime:batteries)
         {
-            if(btime < time) totalTime += btime;
-            else totalTime += time;
+            if(btime < time) totalTime += btime,cnt++;
+            // else totalTime += time;
         }
         
-        return (totalTime >= time * comp);
+        int numComp = comp - (batteries.size()-cnt);
+        return (totalTime >= time * numComp);
     }
     long long maxRunTime(int n, vector<int>& batteries) {
         long long low = 1,high;
