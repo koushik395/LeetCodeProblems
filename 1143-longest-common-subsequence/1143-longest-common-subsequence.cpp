@@ -2,14 +2,14 @@ class Solution {
 public:
     int lcs(string text1, string text2,int m,int n)
     {
-        vector<int> prev(n+1,0),curr(n+1,0);
-        for(int i=1;i<=m;i++)
+        vector<int> prev(m+1,0),curr(m+1,0);
+        for(int i=1;i<=n;i++)
         {
-            for(int j=1;j<=n;j++)
+            for(int j=1;j<=m;j++)
             {
                 // if(i==0 || j==0)
                 //     curr[j] =0;
-                if(text1[i-1] == text2[j-1])
+                if(text2[i-1] == text1[j-1])
                     curr[j] = 1+ prev[j-1];
                 else
                 {
@@ -20,7 +20,7 @@ public:
             }
             prev = curr;
         }
-        return prev[n];
+        return prev[m];
     }
     int longestCommonSubsequence(string text1, string text2) {
         int m = text1.length();
