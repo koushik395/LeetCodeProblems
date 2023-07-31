@@ -3,7 +3,6 @@ public:
     string longestPalindrome(string s) {
         int str_len = s.length();
 
-		// strings of length 0 or 1 are palindromic by definition
 		if (str_len == 0 || str_len == 1)
 			return s;
 
