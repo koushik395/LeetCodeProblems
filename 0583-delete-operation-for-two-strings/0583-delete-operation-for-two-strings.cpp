@@ -1,31 +1,25 @@
 class Solution {
 public:
-    int lcs(string text1, string text2,int m,int n)
+    int f(int i,int j,string& s1,string& s2,vector<vector<int>> &dp)
     {
-        vector<int> prev(m+1,0),curr(n+1,0);
-        for(int i=0;i<=m;i++)
+        if(i < 0) return j+1;
+        if(j < 0) return i+1;
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s1[i] == s2[j])
         {
-            for(int j=0;j<=n;j++)
-            {
-                if(i==0 || j==0)
-                    curr[j] =0;
-                else if(text1[i-1] == text2[j-1])
-                    curr[j] = 1+ prev[j-1];
-                else
-                {
-                    int a = prev[j];
-                    int b = curr[j-1];
-                    curr[j] = max(a,b);
-                }
-            }
-            prev = curr;
+            return f(i-1,j-1,s1,s2,dp);
         }
-        return prev[n];
+        
+        int del1 = f(i-1,j,s1,s2,dp);
+        int del2 = f(i,j-1,s1,s2,dp);
+        
+        return dp[i][j] = 1 + min(del1,del2);
     }
     int minDistance(string word1, string word2) {
         int n = word1.length();
 	    int m = word2.length();
-	    
-	    return n + m - 2*(lcs(word1,word2,n,m));
+	    vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+	    return f(n-1,m-1,word1,word2,dp);
     }
 };
