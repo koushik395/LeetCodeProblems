@@ -9,8 +9,7 @@ class Solution {
     {
         if(ind == 0)
         {
-            if(tar%coins[ind] == 0) return 1;
-            else return 0;
+            return (tar%coins[ind] == 0);
         }
         
         if(dp[ind][tar] != -1) return dp[ind][tar];
