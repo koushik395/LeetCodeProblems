@@ -8,17 +8,39 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to find length of longest increasing subsequence.
-    int longestSubsequence(int n, int a[])
+    // int recursive(int n,int a[],int ind,int prev_ind,vector<vector<int>> &dp)
+    // {
+    //     if(ind == n)
+    //     {
+    //         return 0;
+    //     }
+        
+    //     if(dp[ind][prev_ind+1] != -1) return dp[ind][prev_ind+1];
+        
+    //     int nottake = recursive(n,a,ind+1,prev_ind,dp);
+        
+    //     int take = 0;
+    //     if(prev_ind == -1 || a[ind] > a[prev_ind])
+    //     {
+    //         take = 1 + recursive(n,a,ind+1,ind,dp);
+    //     }
+        
+    //     return dp[ind][prev_ind+1] = max(take,nottake);
+    // }
+    int longestSubsequence(int n, int nums[])
     {
-       vector<int> sub;
-        for (int i = 0;i < n;i++) {
-            int x = a[i];
-            if (sub.empty() || sub[sub.size() - 1] < x) {
+        vector<int> sub;
+        for(int i = 0;i < n;i++)
+        {
+            int x = nums[i];
+            if(sub.empty() || sub[sub.size()-1] < x)
+            {
                 sub.push_back(x);
-            } else {
-                auto it = lower_bound(sub.begin(), sub.end(), x); // Find the index of the first element >= x
-                *it = x; // Replace that number with x
+            }
+            else
+            {
+                auto it = lower_bound(sub.begin(),sub.end(),x);
+                *it = x;
             }
         }
         return sub.size();
