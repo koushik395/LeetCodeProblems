@@ -14,7 +14,7 @@ public:
 	    int low = lower_bound(arr,arr+n,x) - arr;
 	    int high = (upper_bound(arr,arr+n,x) - arr)-1 ;
 	    
-	    if(low == n || high < 0) return 0;
+	    if(low == n) return 0;
 	    return high - low + 1;
 	}
 };
