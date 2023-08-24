@@ -1,45 +1,63 @@
 class Solution {
 public:
-    vector<string> fullJustify(vector<string>& words, int maxWidth) {
-        vector<string> result;
-        int i = 0;
+    int MAX_WIDTH;
+    string getFinalWord(int i, int j, int eachWordSpace, int extraSpace, vector<string>& words) {
+        string s;
 
-        while (i < words.size()) {
-            int j = i, curLen = 0;
+        for(int k = i; k < j; k++) {
+            s += words[k];
 
-            // Calculate the total length of words that can fit in the current line.
-            while (j < words.size() && curLen + words[j].length() + (j - i) <= maxWidth) {
-                curLen += words[j].length();
-                j++;
+            if(k == j-1)
+                continue;
+
+            for(int space = 1; space <= eachWordSpace; space++)
+                s += " ";
+
+            if(extraSpace > 0) {
+                s += " ";
+                extraSpace--;
             }
-
-            int spaces = maxWidth - curLen;
-            int numWords = j - i;
-
-            // Handle the last line separately (left-justified, no extra spaces between words).
-            if (numWords == 1 || j == words.size()) {
-                string line = words[i];
-                for (int k = i + 1; k < j; k++) {
-                    line += " " + words[k];
-                }
-                line += string(maxWidth - line.length(), ' '); // Pad with spaces to reach maxWidth.
-                result.push_back(line);
-            } else {
-                int spacesBetweenWords = spaces / (numWords - 1);
-                int extraSpaces = spaces % (numWords - 1);
-
-                string line = words[i];
-                for (int k = i + 1; k < j; k++) {
-                    int spacesToAdd = spacesBetweenWords + (extraSpaces-- > 0 ? 1 : 0);
-                    line += string(spacesToAdd, ' ') + words[k];
-                }
-
-                result.push_back(line);
-            }
-
-            i = j;
         }
 
+        while(s.length() < MAX_WIDTH) {
+            s += " ";
+        }
+        
+        return s;
+    }
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> result;
+        int n = words.size();
+        MAX_WIDTH = maxWidth;
+        int i = 0;
+        
+        while(i < n) {
+            int lettersCount = words[i].length();
+            int j = i+1;
+            int spaceSlots = 0;
+            
+            while(j < n && spaceSlots + lettersCount + words[j].length() + 1 <= maxWidth) {
+                lettersCount += words[j].length();
+                spaceSlots += 1;
+                j++;
+            }
+            
+            int remainingSlots = maxWidth - lettersCount;
+            
+            
+            int eachWordSpace = spaceSlots == 0 ? 0 : remainingSlots / spaceSlots;
+            int extraSpace = spaceSlots == 0 ? 0 : remainingSlots % spaceSlots;
+            
+            if(j == n) { //Means we are on last line - Left justfied
+                eachWordSpace = 1;
+                extraSpace    = 0;
+            }
+            
+            
+            result.push_back(getFinalWord(i, j, eachWordSpace, extraSpace, words));
+            i = j;
+        }
+        
         return result;
     }
 };
