@@ -52,9 +52,7 @@ class Solution
         while (current->next != NULL) {
             if (current->next->data > current->data) {
                 current->data = current->next->data;
-                Node* tempNode = current->next;
                 current->next = current->next->next;
-                tempNode = NULL;
                 current = head;
             } else {
                 current = current->next;
