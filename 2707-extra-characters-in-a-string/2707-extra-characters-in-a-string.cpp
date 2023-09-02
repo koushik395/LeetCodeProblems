@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // top-down
     int n;
     int find(string &s,unordered_map<string,int>& mp,vector<int> &dp,int idx)
     {
@@ -17,6 +18,7 @@ public:
         }
         return dp[idx] = mini;
     }
+    // bottom - up
     int minExtraChar(string s, vector<string>& dictionary) {
         n = s.size();
         unordered_map<string,int> mp;
