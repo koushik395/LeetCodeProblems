@@ -11,6 +11,7 @@ using namespace std;
 class Solution {
   public:
     int minimumMultiplications(vector<int>& arr, int start, int end) {
+        if(start == end) return 0;
         queue<pair<int,int>> q;
         q.push({start,0});
         vector<int> distance(100000,1e9);
@@ -23,7 +24,7 @@ class Solution {
             
             for(auto& it:arr)
             {
-                int num = (it*node)%100000;
+                int num = (it*1LL*node)%100000;
                 if(steps+1 < distance[num])
                 {
                     distance[num] = steps + 1;
