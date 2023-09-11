@@ -1,40 +1,14 @@
 class Solution {
 public:
-    vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
-        map<int,vector<int>> mp;
-        vector<vector<int>> ans;
-        for(int i = 0;i < groupSizes.size();i++)
-        {
-            mp[groupSizes[i]].push_back(i);
+    vector<vector<int>> groupThePeople(vector<int>& gz) {
+      vector<vector<int>> res, groups(gz.size() + 1);
+      for (auto i = 0; i < gz.size(); ++i) {
+        groups[gz[i]].push_back(i);
+        if (groups[gz[i]].size() == gz[i]) {
+          res.push_back({});
+          swap(res.back(), groups[gz[i]]);
         }
-        
-        for(auto& it:mp)
-        {
-            int size = it.first;
-            vector<int> pep = it.second;
-            int batches = pep.size()/size;
-            
-            while(batches--)
-            {
-                vector<int> temp;
-                int j = 0;
-                for(int i = 0;i < size;i++)
-                {
-                    temp.push_back(pep[j++]);
-                }
-                ans.push_back(temp);
-            }
-        }
-        return ans;
+      }
+      return res;
     }
-    
-      // vector<vector<int>> res, groups(gz.size() + 1);
-      // for (auto i = 0; i < gz.size(); ++i) {
-      //   groups[gz[i]].push_back(i);
-      //   if (groups[gz[i]].size() == gz[i]) {
-      //     res.push_back({});
-      //     swap(res.back(), groups[gz[i]]);
-      //   }
-      // }
-      // return res;
 };
