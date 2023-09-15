@@ -43,7 +43,7 @@ public:
 class Solution {
 public:
     int minCostConnectPoints(vector<vector<int>>& points) {
-        vector<vector<int>> ksk;
+        vector<array<int,3>> ksk;
         int n = points.size();
         
         for(int i = 0;i < n-1;i++)
