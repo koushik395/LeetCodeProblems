@@ -6,6 +6,7 @@ public:
         for(int i = 0;i < row;i++)
         {
             int numSoldiers = col - (lower_bound(mat[i].rbegin(),mat[i].rend(),1) - mat[i].rbegin()); 
+
             pq.push({numSoldiers,i});
         }
         
