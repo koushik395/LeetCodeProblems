@@ -1,38 +1,35 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int m = nums1.size(),n = nums2.size();
-        for(int i = 0;i<n;i++)
-            nums1.push_back(0);
-        int low = m -1,end = (m+n) - 1, high = n - 1;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        int n = n1 + n2;
+        if(n1 > n2) return findMedianSortedArrays(nums2,nums1); //keep first arr as small one.
         
-        while((high >= 0) && (low >= 0))
+        int low = 0,high = n1;
+        int leftarr = (n1+n2+1) >> 1;
+        while(low <= high)
         {
-            if(nums2[high] >= nums1[low])
+            int mid1 = (low+high) >> 1;
+            int mid2 = leftarr - mid1;
+            
+            int l1 = INT_MIN,l2 = INT_MIN;
+            int r1 = INT_MAX,r2 = INT_MAX;
+            
+            if(mid1 < n1) r1 = nums1[mid1]; 
+            if(mid2 < n2) r2 = nums2[mid2];
+            
+            if(mid1 - 1 >= 0) l1 = nums1[mid1-1];
+            if(mid2 - 1 >= 0) l2 = nums2[mid2-1];
+            
+            if(l1 <= r2 && l2 <= r1)
             {
-                nums1[end] = nums2[high];
-                high--;
+                if(n & 1) return max(l1,l2);
+                return (double)(max(l1,l2) + min(r1,r2))/ 2.0;
             }
-            else
-            {
-                nums1[end] = nums1[low];
-                low--;
-            }
-            end--;
-        } 
-        while(high>=0)
-        {
-            nums1[end] = nums2[high];
-            end--;
-            high--;
+            else if(l1 > r2) high = mid1 - 1;
+            else low = mid1 + 1;
         }
-        double ans;
-        int size = m+n;
-        if(size&1)
-            ans = nums1[size>>1];
-        else
-            ans = ((nums1[(size>>1)-1] + nums1[(size>>1)])*1.0) / 2;
-        
-        return ans;
+        return 0;
     }
 };
