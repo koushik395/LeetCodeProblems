@@ -41,7 +41,7 @@ class Solution
             return head;
         Node* prev = NULL;
         Node* curr = head;
-        int k = 2;
+
         int cnt = 0;
         while(cnt < 2)
         {
