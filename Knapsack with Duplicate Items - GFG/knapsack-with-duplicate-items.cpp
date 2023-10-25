@@ -9,47 +9,33 @@ using namespace std;
 
 class Solution{
 public:
-    int f(int ind,int w,int profit[],int weight[],vector<vector<int>> &dp)
+    int solve(int index,int N, int W, int val[], int wt[],vector<vector<int>>&dp)
     {
-        if(ind == 0)
+        if(index>=N)
         {
-            return (w/weight[0]) * profit[0];
-        }
-    
-        if(dp[ind][w]!=-1) return dp[ind][w];
-    
-        int nottake = 0 + f(ind-1,w,profit,weight,dp);
-        int take = INT_MIN;
-        if(weight[ind] <= w)
-        {
-            take = profit[ind] + f(ind,w-weight[ind],profit,weight,dp);
-        }
-    
-        return dp[ind][w] = max(take,nottake);
-    }
-    int knapSack(int n, int w, int profit[], int weight[])
-    {
-        vector<int> prev(w+1,0);
-        for(int W = 0 ; W <= w;W++)
-        {
-            prev[W] = (W/weight[0]) * profit[0];
+            return 0;
         }
         
-        for(int ind = 1;ind < n;ind++)
+        if(dp[index][W]!=-1)
         {
-            for(int W=0; W <= w;W++)
-            {
-                int nottake = 0 + prev[W];
-                int take = INT_MIN;
-                if(weight[ind] <= W)
-                {
-                    take = profit[ind] + prev[W-weight[ind]];
-                }
-                
-                prev[W] = max(take,nottake);
-            }
+            return  dp[index][W];
         }
-        return prev[w];
+        
+        int take = INT_MIN;
+        
+        if(W-wt[index]>=0)
+        {
+            take = val[index]+solve(index,N,W-wt[index],val,wt,dp);
+        }
+        
+        int nottake = solve(index+1,N,W,val,wt,dp);
+        
+        return dp[index][W] = max(take,nottake);
+    }
+    int knapSack(int N, int W, int val[], int wt[])
+    {
+        vector<vector<int>>dp(N+1,vector<int>(W+1,-1));
+        return solve(0,N,W,val,wt,dp);
     }
 };
 
