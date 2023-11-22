@@ -12,7 +12,7 @@ public:
                 int i = x;
                 int j = s - i;
                 if(!(s & 1)) swap(i,j);
-                
+
                 if(i >= row || j >= col) continue;
                 
                 ans.push_back(mat[i][j]);
