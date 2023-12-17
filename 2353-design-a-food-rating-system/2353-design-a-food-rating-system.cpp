@@ -13,7 +13,7 @@ public:
     }
     
     void changeRating(string food, int newRating) {
-        auto &cuisine = food_cuisine[food];
+        auto &cuisine = food_cuisine.find(food)->second;
         cuisine_ratings[cuisine].erase({ -food_rating[food], food });
         cuisine_ratings[cuisine].insert({ -newRating, food });
         food_rating[food] = newRating;
