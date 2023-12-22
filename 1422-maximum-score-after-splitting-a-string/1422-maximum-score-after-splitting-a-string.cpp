@@ -8,6 +8,5 @@ public:
             if(i != s.length()-1) maxi = max(zeros - ones, maxi);
         }
         return maxi + ones;
-        
     }
 };
