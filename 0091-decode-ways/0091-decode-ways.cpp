@@ -16,6 +16,7 @@ public:
             if (second >= 10 && second <= 26) {
                 dp[i] += dp[i-2];
             }
+            if(dp[i] == 0) return 0;
         }
         return dp[n];
     }
