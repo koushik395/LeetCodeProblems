@@ -5,7 +5,7 @@ public:
         vector<int> count(n + 1);
         vector<vector<int>> res;
         for (int a : A) {
-            if (res.size() <= count[a])
+            if (res.size() == count[a])
                 res.push_back({});
             res[count[a]++].push_back(a);
         }
