@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minSteps(string s, string t) {
-        vector<int> freq(32,0);
+        vector<int> freq(26,0);
         int ans = 0;
         
         for(auto& it: s) freq[it-'a']++;
